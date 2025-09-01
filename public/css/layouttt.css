@@ -1,0 +1,90 @@
+.product-detail-wrapper {
+  max-width: 1410px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 8px;
+}
+
+.product-detail {
+  display: flex;
+  gap: 40px;
+}
+
+.product-image-section {
+  flex: 1;
+  text-align: center;
+  border-right: 1px solid rgb(172, 172, 172);
+}
+
+.product-detail-image {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 4px;
+}
+
+.product-info-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.product-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #222;
+}
+
+.product-price {
+  font-size: 22px;
+  color: #e60000;
+  font-weight: bold;
+}
+
+.product-description {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.btn-detail-cart {
+  background-color: #ffffff;
+  color: #0048ff;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  border: 1px solid #0048ff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-detail-cart:hover {
+  background-color: #0048ff;
+  color: #ffffff;
+}
+.back-button-area {
+  margin-bottom: 20px;
+  margin-left: 230px;
+}
+
+.btn-back-in-box {
+  display: inline-block;
+  background-color: #ffffff;
+  color: #0048ff;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  text-decoration: none;
+  border: 1px solid #0048ff;
+  transition: background 0.3s ease;
+}
+
+.btn-back-in-box:hover {
+  background-color: #0048ff;
+    color: #ffffff;
+}

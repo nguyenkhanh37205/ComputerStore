@@ -1,0 +1,189 @@
+.brand-section{
+  max-width: 1410px;
+  background: #212020;
+  padding: 30px 20px;
+  margin: 30px auto;
+  /* border-radius: 0px; */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+
+/* Track ngang sản phẩm */
+.carousel-track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 0;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Sản phẩm */
+.product {
+  flex: 0 0 250px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.product h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #333;
+  height: 42px;
+  overflow: hidden;
+  line-height: 21px;
+}
+
+.product p {
+  font-size: 15px;
+  color: #e74c3c;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.product button {
+  margin: 6px 4px;
+  padding: 10px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3498db;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product button:hover {
+  background-color: #2980b9;
+}
+
+/* Nút mũi tên nằm trong khung */
+.carousel-btn-left{
+  position: absolute;
+  left: 0%;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #ffffff;
+  border: none  ;
+  color: rgb(0, 0, 0);
+  padding: 12px 14px;
+  font-size: 15px;
+  cursor: pointer;
+  z-index: 10;
+  border-end-end-radius: 45%;
+  border-top-right-radius: 45%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease;
+}
+/* .carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 14px;
+  font-size: 20px;
+  border-radius: 45%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.3s, transform 0.2s;
+} */
+.carousel-btn-right{
+  position: absolute;
+  right: 0%;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #ffffff;
+  border: none;
+  color: rgb(0, 0, 0);
+  padding: 12px 14px;
+  font-size: 15px;
+  cursor: pointer;
+  z-index: 10;
+  border-top-left-radius: 45%;
+  border-bottom-left-radius: 45%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease;
+}
+.carousel-btn-left:hover {
+  background: rgb(0, 64, 255);
+  color: rgb(255, 255, 255);
+  transform: translateY(-50%) scale(1.1);
+}
+.carousel-btn-right:hover {
+  background: rgb(0, 64, 255);
+  color: rgb(255, 255, 255);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn.left {
+  left: 10px;
+}
+
+.carousel-btn.right {
+  right: 10px;
+}
+
+
+
+.brand-section {
+  max-width: 1410px;
+  border-radius: 16px;
+  background: #ffffff20;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(8px);
+  background: linear-gradient(135deg, #0F2027, #203A43, #2C5364, #26D0CE);
+  padding:10px 10px;
+}
+
+.brand-title {
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 20px;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.brand-section {
+  background: linear-gradient(to right, #f0f4f8, #d9e2ec);
+  /* màu nền nhẹ nhàng */
+  border-radius: 16px;
+  padding: 20px 30px;
+  margin: 30px 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.brand-title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  font-weight: bold;
+}
+
+
+
