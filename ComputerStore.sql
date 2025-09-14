@@ -46,6 +46,7 @@ CREATE TABLE brands (
 CREATE TABLE products (
     productId INT AUTO_INCREMENT PRIMARY KEY, -- Mã sản phẩm
     productName VARCHAR(255) NOT NULL,        -- Tên sản phẩm
+    image VARCHAR(255),                       -- Ảnh chung của sản phẩm
     productDescription TEXT,                  -- Mô tả sản phẩm
     categoryId INT,                           -- Danh mục
     brandId INT,                              -- Thương hiệu
