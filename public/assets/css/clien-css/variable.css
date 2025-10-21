@@ -1,0 +1,13 @@
+:root {
+    --fpt-red: #e60028;
+    --fpt-dark-blue: #006eff;
+    --fpt-main-bg: #fff;
+    --fpt-text-light: #fff;
+    --fpt-text-dark: #333;
+    --fpt-blue: #007bff;
+    --fpt-blue-hover: #0056b3;
+    --fpt-gray: #b0b0b0;
+    --fpt-light-gray: #f4f4f4;
+    --fpt-card-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+

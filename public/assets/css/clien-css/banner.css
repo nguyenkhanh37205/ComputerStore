@@ -1,0 +1,128 @@
+/* --- Banner Section --- */
+.banner-section {
+    background-color: var(--fpt-red);
+    padding: 20px 0;
+}
+
+.banner-section .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.main-banner {
+    flex: 2;
+    background: url('../public/images/main-banner.jpg') no-repeat center center / cover;
+    height: 400px;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.main-banner-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 40px;
+}
+
+.product-info h2 {
+    font-size: 72px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.promo-info {
+    text-align: right;
+    color: #fff;
+}
+
+.promo-info h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.promo-box {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 15px 25px;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.promo-box p {
+    font-size: 14px;
+}
+
+.promo-box h4 {
+    font-size: 40px;
+    color: #f1c40f;
+    line-height: 1.2;
+    font-weight: 900;
+}
+
+.promo-meta span {
+    display: block;
+    font-size: 12px;
+}
+
+.btn-buy {
+    background-color: #fff;
+    color: var(--fpt-dark-blue);
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: transform 0.2s;
+}
+
+.btn-buy:hover {
+    transform: scale(1.05);
+}
+
+.sub-banners {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sub-banner {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: var(--fpt-card-shadow);
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 15px;
+    text-decoration: none;
+    color: var(--fpt-text-dark);
+    transition: transform 0.2s;
+    overflow: hidden;
+}
+
+.sub-banner-content .img {
+    width: 100%;
+    height: auto;
+}
+
+.sub-banner:hover {
+    transform: translateY(-5px);
+}
+
+.sub-banner.thu-cu {
+    background: url('../public/images/sub-banner-1.jpg') no-repeat center center / cover;
+}
+
+.sub-banner.buot-gioi-han {
+    background: url('../public/images/sub-banner-2.jpg') no-repeat center center / cover;
+}

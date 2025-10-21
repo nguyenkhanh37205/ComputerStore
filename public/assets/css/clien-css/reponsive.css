@@ -1,0 +1,143 @@
+.main-banner {
+    width: 100%;
+    background-color: transparent; /* hoặc bỏ luôn nếu có */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.main-banner-content {
+    width: 100%;
+    max-width: 1200px; /* cho cân giữa màn hình */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.banner-slider {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header-top .container {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .logo {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .search-bar {
+        max-width: 100%;
+        order: 3;
+        margin-top: 10px;
+    }
+
+    .user-actions {
+        order: 2;
+    }
+
+    .header-nav .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-menu {
+        margin-left: 0;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .nav-item.has-dropdown>.dropdown-content {
+        position: static;
+        box-shadow: none;
+        padding-left: 20px;
+        background-color: var(--fpt-blue);
+    }
+
+    .dropdown-content a {
+        color: var(--fpt-text-light);
+        padding: 5px 15px;
+    }
+
+    .dropdown-item.has-sub-dropdown>a::after {
+        display: none;
+    }
+
+    .dropdown-item .sub-dropdown-content {
+        position: static;
+        box-shadow: none;
+        padding-left: 20px;
+        background-color: var(--fpt-blue-hover);
+    }
+
+    .location-picker {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .main-banner {
+        height: auto; /* bỏ cố định chiều cao */
+    }
+
+    .main-banner-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .slide img {
+        height: auto; /* cho ảnh tự co */
+    }
+
+    .product-info h2 {
+        font-size: 48px;
+    }
+
+    .promo-info {
+        text-align: center;
+    }
+
+    .sub-banners {
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .footer-intro {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .footer-intro .intro-text {
+        margin: 0;
+    }
+
+    .footer-columns {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .search-keywords {
+        max-width: 100%;
+        text-align: center;
+    }
+}
