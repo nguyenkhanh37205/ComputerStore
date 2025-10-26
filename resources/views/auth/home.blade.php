@@ -209,7 +209,6 @@
 
         <section class="product-section viewed-products">
             <div class="container">
-
                 {{-- --- HIỂN THỊ THEO THƯƠNG HIỆU --- --}}
                 @foreach($productsByBrand as $brandName => $brandProducts)
                 <div class="section-header">
@@ -219,44 +218,50 @@
                 <div class="product-list-container">
                     <div class="product-list">
                         @foreach($brandProducts as $product)
+                        {{-- Lấy variant đầu tiên (ví dụ hiển thị bản mặc định) --}}
+                        @php
+                        $variant = $product->variants->first();
+                        @endphp
+
+                        @if($variant)
                         <div class="product-card">
                             <div class="product-header">
-                                @if($product->old_price ?? false)
-                                <span class="save-badge">Tiết kiệm<br>
-                                    <b>{{ number_format($product->old_price - $product->price, 0, ',', '.') }} ₫</b>
+                                {{-- Nếu có giảm giá --}}
+                                @if(isset($variant->old_price) && $variant->old_price > $variant->price)
+                                <span class="save-badge">
+                                    Tiết kiệm<br>
+                                    <b>{{ number_format($variant->old_price - $variant->price, 0, ',', '.') }} ₫</b>
                                 </span>
                                 @endif
                                 <button class="favorite-btn"><i class="far fa-heart"></i></button>
                             </div>
 
-                            <img src="{{ asset('storage/images/' . $product->image) }}"
+                            <img src="{{ asset('storage/images/' . ($variant->image ?? $product->image)) }}"
                                 alt="{{ $product->productName }}" class="product-img">
 
                             <div class="product-info">
-                                <p class="brand">{{ $product->brands->brandName ?? '' }}</p>
+                                <p class="brand">{{ $product->brand->brandName ?? '' }}</p>
                                 <h4 class="product-name">{{ $product->productName }}</h4>
+                                <p class="variant-info">
+                                    {{ $variant->ram ?? '' }} / {{ $variant->rom ?? '' }} / {{ $variant->color ?? '' }}
+                                </p>
                                 <div class="price-info">
-                                    <p class="current-price">{{ number_format($product->price, 0, ',', '.') }} ₫</p>
-                                    @if($product->old_price ?? false)
-                                    <p class="old-price">{{ number_format($product->old_price, 0, ',', '.') }} ₫</p>
+                                    <p class="current-price">{{ number_format($variant->price, 0, ',', '.') }} ₫</p>
+                                    @if(isset($variant->old_price) && $variant->old_price > $variant->price)
+                                    <p class="old-price">{{ number_format($variant->old_price, 0, ',', '.') }} ₫</p>
                                     @endif
                                 </div>
                             </div>
                             <a href="#" class="contact-link">Thêm giỏ hàng</a>
                         </div>
+                        @endif
                         @endforeach
                     </div>
                 </div>
                 @endforeach
-
-                {{-- --- HOẶC THEO DANH MỤC --- --}}
-                {{-- 
-        @foreach($productsByCategory as $categoryName => $categoryProducts)
-            ...
-        @endforeach 
-        --}}
             </div>
         </section>
+
 
 
 
