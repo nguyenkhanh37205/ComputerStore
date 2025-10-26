@@ -13,7 +13,7 @@ class Products extends Model
     protected $primaryKey = 'productId'; // Khóa chính là 'productId'
 
     // Laravel mặc định tìm 'updated_at', nếu không có, cần tắt timestamps
-    public $timestamps = false; // Tắt timestamps vì bạn chỉ có 'createdAt'
+    public $timestamps = false; // Bỏ auto created_at / updated_at
     const CREATED_AT = 'createdAt'; // Khai báo tên cột created_at
 
     /**

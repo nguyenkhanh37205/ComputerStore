@@ -3,8 +3,8 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    background: transparent;
-    padding: 20px 0;
+    background: #f9f9f9;
+    padding: 30px 0;
 }
 
 .banner-slider {
@@ -12,34 +12,29 @@
     width: 90%;
     max-width: 1200px;
     overflow: hidden;
-    border-radius: 16px;
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 18px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* ==== SLIDE TRACK ==== */
+/* ==== SLIDE ==== */
 .slides {
     display: flex;
     transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
-    /* mượt hơn */
 }
 
-/* ==== MỖI SLIDE ==== */
 .slide {
     min-width: 100%;
-    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f8f9fa;
-    overflow: hidden;
 }
 
 .slide img {
     width: 100%;
-    height: 450px;
+    height: 460px;
     object-fit: cover;
-    border-radius: 12px;
-    transition: transform 1.2s ease-in-out, opacity 1.2s ease-in-out;
+    border-radius: 18px;
+    transition: transform 1.5s ease, opacity 1s ease;
 }
 
 .slide.active img {
@@ -51,49 +46,91 @@
     opacity: 0.9;
 }
 
-/* ==== NÚT ĐIỀU HƯỚNG ==== */
+/* ==== NÚT MŨI TÊN (ĐẸP HƠN, HIỆU ỨNG MƯỢT HƠN) ==== */
 .prev,
 .next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
+    width: 64px;
+    height: 64px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
     color: white;
     border: none;
-    padding: 14px;
+    font-size: 26px;
     cursor: pointer;
-    border-radius: 50%;
-    z-index: 10;
-    transition: background 0.3s ease;
+    transition: all 0.4s ease;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
 }
 
+/* Nút nửa tròn sát mép */
 .prev {
-    left: 15px;
+    left: -32px;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    padding-left: 9px;
 }
-
 .next {
-    right: 15px;
+    right: -32px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    padding-right: 9px;
 }
 
+/* Khi hover vào slider -> mũi tên trồi ra nhẹ */
+.banner-slider:hover .prev,
+.banner-slider:hover .next {
+    opacity: 1;
+    visibility: visible;
+}
+.banner-slider:hover .prev {
+    transform: translateY(-50%) translateX(8px);
+}
+.banner-slider:hover .next {
+    transform: translateY(-50%) translateX(-8px);
+}
+
+/* Hiệu ứng hover nút */
 .prev:hover,
 .next:hover {
-    background-color: rgba(0, 0, 0, 0.75);
+    background: linear-gradient(135deg, rgba(0,123,255,0.85), rgba(0,64,179,0.85));
+    transform: translateY(-50%) scale(1.15);
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.5);
 }
+
+/* Icon mũi tên trắng nổi bật hơn */
+.prev::before,
+.next::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.18) 0%, transparent 70%);
+    pointer-events: none;
+}
+
 
 /* ==== DOTS ==== */
 .dots {
     position: absolute;
-    bottom: 20px;
+    bottom: 18px;
     width: 100%;
     text-align: center;
 }
 
 .dot {
     display: inline-block;
-    width: 12px;
-    height: 12px;
-    margin: 0 5px;
-    background-color: rgba(255, 255, 255, 0.6);
+    width: 11px;
+    height: 11px;
+    margin: 0 6px;
+    background-color: rgba(255, 255, 255, 0.7);
     border-radius: 50%;
     cursor: pointer;
     transition: background 0.3s, transform 0.3s;
@@ -101,18 +138,28 @@
 
 .dot.active {
     background-color: #007bff;
-    transform: scale(1.2);
+    transform: scale(1.3);
 }
 
 /* ==== RESPONSIVE ==== */
 @media (max-width: 768px) {
-    .slide img {
-        height: 320px;
+    .slide img { height: 320px; }
+    .prev, .next {
+        width: 46px;
+        height: 46px;
+        font-size: 18px;
     }
+    .prev { left: -23px; border-radius: 0 23px 23px 0; }
+    .next { right: -23px; border-radius: 23px 0 0 23px; }
 }
 
 @media (max-width: 480px) {
-    .slide img {
-        height: 220px;
+    .slide img { height: 220px; }
+    .prev, .next {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
     }
+    .prev { left: -18px; border-radius: 0 18px 18px 0; }
+    .next { right: -18px; border-radius: 18px 0 0 18px; }
 }

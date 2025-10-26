@@ -4,8 +4,25 @@
     color: var(--fpt-text-light);
 }
 
-.header-top {
+/* .header-top {
     padding: 10px 0;
+} */
+.header-top {
+position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--fpt-dark-blue);
+  z-index: 1000;
+  /* box-shadow: 0 2px 5px var(--fpt-dark-blue); */
+}
+
+
+.header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
 }
 
 .header-top .container {

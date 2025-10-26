@@ -14,7 +14,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\VariantsController;
 use App\Http\Controllers\WishlistsController;
-// use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\ClientController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +35,10 @@ Route::post('/login', [LoginController::class, 'login'])->name('login.post')->mi
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register.form')->middleware('guest');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post')->middleware('guest');
+
+// phần người dùng
+Route::get('/', [ClientController::class, 'getAllProducts'])->name('client.home');
+
 // phần admin 
 Route::get('/index', [IndexController::class, 'index']);
 Route::prefix('admin')->group(function () {

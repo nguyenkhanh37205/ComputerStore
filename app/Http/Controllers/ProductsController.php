@@ -16,8 +16,13 @@ class ProductsController extends Controller
     {
         // Sử dụng Eager Loading để tải Category và Brand
         $products = Products::with(['categories', 'brands'])->get(); 
-        
-        return view('admin.products.index', compact('products'));
+
+        //lấy theo thương hiệu
+        $productsByBrand = $products->groupBy(function($product) {
+            return $product->brands->brandName; // Giả định brandName là tên thương hiệu
+        });
+
+        return view('admin.products.index', compact('products', 'productsByBrand'));
     }
 
     //---------------------------------------------------------
