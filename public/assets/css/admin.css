@@ -365,3 +365,6 @@ tbody td {
         width: 45%;
     }
 }
+.text-center {
+    text-align: center;
+}

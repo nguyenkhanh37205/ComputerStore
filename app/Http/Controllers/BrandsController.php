@@ -2,68 +2,90 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brands;
 use Illuminate\Http\Request;
-use DB;
-use App\Models\Brand;
-use Session;
-use App\Http\Requests;
-use Illuminate\Support\Facades\Redirect;
+use App\Models\Brands; // Import Model Brand
+
 class BrandsController extends Controller
 {
     public function index()
     {
-        $brands = Brands::all();
-        // dd($brands);
+        $brands = Brands::all(); 
+        
         return view('admin.brands.index', compact('brands'));
     }
+
+    //---------------------------------------------------------
+
     public function create()
     {
         return view('admin.brands.create');
     }
+
+    //---------------------------------------------------------
+
     public function store(Request $request)
     {
-        // Validate the request data
+        // 1. Validate the request data
         $request->validate([
-            'brandName' => 'required|string|max:255',
-            'brandDescription' => 'nullable|string',
+            'brandName' => 'required|string|max:100|unique:brands', // Tên thương hiệu là duy nhất
+            'brandDescription' => 'nullable|string', 
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-        // Create a new brand
+
+        // 2. Tạo Brand mới
         Brands::create([
             'brandName' => $request->brandName,
             'brandDescription' => $request->brandDescription,
+            'logo' => $request->file('logo')->store('logos', 'public'),
         ]);
-        
-        
-        return redirect()->route('admin.brands.index')->with('success', 'Tạo thương hiệu thành công.');
+
+        return redirect()->route('admin.brands.index')->with('success', 'Thương hiệu đã được tạo thành công.');
     }
+
+    //---------------------------------------------------------
+
     public function edit($id)
     {
-        // $brand = Brand::findOrFail($id);
-        return view('admin.brands.edit'/*, compact('brand')*/);
+        $brand = Brands::findOrFail($id);
+        return view('admin.brands.edit', compact('brand'));
     }
 
-    //update thương hiệu
+    //---------------------------------------------------------
+
     public function update(Request $request, $id)
     {
-        // Validate the request data
+        // 1. Validate the request data
         $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            // unique:brands,brandName, ngoại trừ brandId hiện tại
+            'brandName' => 'required|string|max:100|unique:brands,brandName,' . $id . ',brandId', 
+            'brandDescription' => 'nullable|string', 
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-        // $brand = Brand::findOrFail($id);
-        // $brand->update([
-        //     'name' => $request->name,
-        //     'description' => $request->description,
-        // ]);
-        return redirect()->route('admin.brands.index')->with('success', 'Cập nhật thương hiệu thành công.');
+
+        // 2. Cập nhật Brand
+        $brand = Brands::findOrFail($id); 
+        $brand->update($request->only([
+             'brandName',
+             'brandDescription',
+             'logo',
+        ]));
+
+        return redirect()->route('admin.brands.index')->with('success', 'Thương hiệu đã được cập nhật thành công.');
     }
 
-    //xóa thương hiệu
+    //---------------------------------------------------------
+
     public function destroy($id)
     {
-        // $brand = Brand::findOrFail($id);
-        // $brand->delete();
-        return redirect()->route('admin.brands.index')->with('success', 'Xóa Sản phẩm thương hiệu thành công.');
+        $brand = Brands::findOrFail($id);
+        
+        // Kiểm tra xem có sản phẩm nào thuộc thương hiệu này không
+        if ($brand->products()->count() > 0) {
+            return redirect()->route('admin.brands.index')->with('error', 'Không thể xóa thương hiệu vì vẫn còn sản phẩm liên quan.');
+        }
+
+        $brand->delete();
+
+        return redirect()->route('admin.brands.index')->with('success', 'Thương hiệu đã được xóa thành công.');
     }
 }

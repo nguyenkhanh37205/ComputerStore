@@ -7,15 +7,30 @@ use Illuminate\Database\Eloquent\Model;
 
 class Brands extends Model
 {
-    public $timestamps = false;
+    use HasFactory;
+
+    protected $table = 'brands'; // Tên bảng là 'brands'
+    protected $primaryKey = 'brandId'; // Khóa chính là 'brandId'
+
+    // Tắt timestamps vì bạn không có cột created_at/updated_at trong bảng Brands
+    public $timestamps = false; 
+
+    /**
+     * Các thuộc tính có thể gán hàng loạt.
+     */
     protected $fillable = [
-        'brandId',
-        'brandName'
+        'brandName',
+        'brandDescription',
+        'logo',
     ];
-    protected $primaryKey = 'brandId';
-    protected $table = 'brands';
+
+    /**
+     * Định nghĩa quan hệ (Relationship)
+     * Quan hệ: Một Brand có nhiều Products
+     */
     public function products()
     {
-        return $this->hasMany('App\Models\Products');
+        // Khóa ngoại trong bảng products là brandId, khóa chính của Brands là brandId
+        return $this->hasMany(Product::class, 'brandId', 'brandId');
     }
 }

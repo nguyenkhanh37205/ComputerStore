@@ -1,10 +1,19 @@
 @extends('admin.layout')
+
 @section('content')
 <div class="content-header">
     <h1>Danh sách sản phẩm</h1>
-    <a href="#" class="add-btn">Thêm mới</a>
+    {{-- Liên kết đến trang thêm mới sản phẩm --}}
+    <a href="{{ route('admin.products.create') }}" class="add-btn">Thêm mới</a>
     <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
 </div>
+
+{{-- Hiển thị thông báo thành công hoặc lỗi (nếu có) --}}
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 
 <div class="table-container">
     <table>
@@ -14,23 +23,60 @@
                 <th>HÌNH ẢNH</th>
                 <th>TÊN</th>
                 <th>LOẠI</th>
+                <th>THƯƠNG HIỆU</th>
                 <th>GIÁ</th>
                 <th>HÀNH ĐỘNG</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <button class="btn-action edit">Sửa</button>
-                    <button class="btn-action delete">Xóa</button>
-                </td>
-            </tr>
-            
+            {{-- Bắt đầu vòng lặp qua danh sách sản phẩm --}}
+            @forelse ($products as $product)
+                <tr>
+                    {{-- ID (Sử dụng productId) --}}
+                    <td>{{ $product->productId }}</td> 
+                    
+                    {{-- HÌNH ẢNH --}}
+                    <td>
+                        @if ($product->image)
+                            {{-- Giả định ảnh được lưu trong thư mục 'products' của storage/app/public --}}
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}" style="width: 50px; height: auto;">
+                        @else
+                            Không ảnh
+                        @endif
+                    </td>
+                    
+                    {{-- TÊN (Sử dụng productName) --}}
+                    <td>{{ $product->productName }}</td> 
+                    
+                    {{-- LOẠI (Lấy từ quan hệ category) --}}
+                    <td>{{ $product->category->categoryName ?? 'N/A' }}</td>
+                    
+                    {{-- THƯƠNG HIỆU (Lấy từ quan hệ brand) --}}
+                    <td>{{ $product->brand->brandName ?? 'N/A' }}</td>
+                    
+                    {{-- GIÁ (Lấy từ cột 'price' - đã giả định trong Model Products) --}}
+                    <td>{{ number_format($product->price ?? 0, 0, ',', '.') }} đ</td> 
+
+                    {{-- HÀNH ĐỘNG --}}
+                    <td>
+                        {{-- Nút SỬA --}}
+                        <a href="{{ route('admin.products.edit', $product->productId) }}" class="btn-action edit">Sửa</a>
+                        
+                        {{-- Nút XÓA (Sử dụng form để gửi request DELETE) --}}
+                        <form action="{{ route('admin.products.destroy', $product->productId) }}" method="POST" style="display:inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn-action delete" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm {{ $product->productName }} không?');">
+                                Xóa
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="7" class="text-center">Không có sản phẩm nào được tìm thấy.</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 </div>

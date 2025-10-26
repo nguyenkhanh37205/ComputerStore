@@ -1,0 +1,38 @@
+/* --- Bổ sung CSS cho Bảng Giỏ hàng (Cart Index) --- */
+
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table-container th, .table-container td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.9em;
+}
+
+.table-container th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+}
+
+.table-container tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Tùy chỉnh cột tổng tiền */
+.table-container td:nth-child(7) { /* Cột Tổng tiền */
+    font-weight: bold;
+    color: #e74c3c; /* Màu đỏ nổi bật */
+}
+
+/* Tùy chỉnh cột Người dùng để dễ đọc hơn */
+.table-container td:nth-child(2) small {
+    display: block;
+    color: #666;
+    font-weight: normal;
+}

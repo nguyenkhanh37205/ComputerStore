@@ -2,38 +2,37 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+// Giữ nguyên tên Class là User
+class User extends Authenticatable 
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     protected $table = 'users';
     protected $primaryKey = 'userId';
-    public $timestamps = false;
-
+    
+    // Bật timestamps (Laravel sẽ tự động dùng created_at và updated_at)
+    public $timestamps = true; 
+    
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
+     * Các thuộc tính có thể gán hàng loạt.
+     * Thêm 'image' vào danh sách fillable.
      */
     protected $fillable = [
-        'fullName',
-        'username',
+        'username', 
         'email',
         'password',
-        'phone',
+        'fullName',
+        'phone', 
+        'image', 
         'role',
     ];
-
+    
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
+     * Các thuộc tính nên bị ẩn khi chuyển đổi model thành array/JSON.
      */
     protected $hidden = [
         'password',
@@ -41,11 +40,11 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
+     * Định nghĩa quan hệ với bảng Orders.
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function orders() {
+        // Cần đảm bảo Model Orders đã được đổi tên thành Order (hoặc tên chính xác của bạn)
+        // và khóa ngoại trong bảng 'orders' là 'user_id'
+        return $this->hasMany('App\Models\Orders', 'user_id', 'userId'); 
+    }
 }

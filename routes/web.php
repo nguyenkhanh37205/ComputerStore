@@ -10,6 +10,10 @@ use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\VariantsController;
+use App\Http\Controllers\WishlistsController;
 // use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -71,5 +75,37 @@ Route::prefix('admin')->group(function () {
         Route::get('/{id}/edit', [UsersController::class, 'edit'])->name('admin.users.edit');
         Route::post('/{id}/update', [UsersController::class, 'update'])->name('admin.users.update');
         Route::delete('/{id}/delete', [UsersController::class, 'destroy'])->name('admin.users.destroy');
+    });
+    // phần quản lý giỏ hàng
+    Route::prefix('/cart')->group(function () {
+        Route::get('/', [CartController::class, 'index'])->name('admin.cart.index');
+        Route::post('/store', [CartController::class, 'store'])->name('admin.cart.store');
+        Route::post('/{id}/update', [CartController::class, 'update'])->name('admin.cart.update');
+        Route::delete('/{id}/delete', [CartController::class, 'destroy'])->name('admin.cart.destroy');
+    });
+    // quản lý đơn hàng
+    Route::prefix('/orders')->group(function () {
+        Route::get('/', [OrdersController::class, 'index'])->name('admin.orders.index');
+        Route::get('/{id}', [OrdersController::class, 'show'])->name('admin.orders.show');
+        Route::post('/{id}/update-status', [OrdersController::class, 'updateStatus'])->name('admin.orders.updateStatus');
+        Route::delete('/{id}/delete', [OrdersController::class, 'destroy'])->name('admin.orders.destroy');
+    });
+    // phần quản lý biến thể sản phẩm
+    Route::prefix('/variants')->group(function () {
+        Route::get('/', [VariantsController::class, 'index'])->name('admin.variants.index');
+        Route::get('/create', [VariantsController::class, 'create'])->name('admin.variants.create');
+        Route::post('/store', [VariantsController::class, 'store'])->name('admin.variants.store');
+        Route::get('/{id}/edit', [VariantsController::class, 'edit'])->name('admin.variants.edit');
+        Route::post('/{id}/update', [VariantsController::class, 'update'])->name('admin.variants.update');
+        Route::delete('/{id}/delete', [VariantsController::class, 'destroy'])->name('admin.variants.destroy');
+    });
+    // phần quản lý danh sách yêu thích
+    Route::prefix('/wishlists')->group(function () {
+        Route::get('/', [WishlistsController::class, 'index'])->name('admin.wishlists.index');
+        Route::get('/create', [WishlistsController::class, 'create'])->name('admin.wishlists.create');
+        Route::post('/store', [WishlistsController::class, 'store'])->name('admin.wishlists.store');
+        Route::get('/{id}/edit', [WishlistsController::class, 'edit'])->name('admin.wishlists.edit');
+        Route::post('/{id}/update', [WishlistsController::class, 'update'])->name('admin.wishlists.update');
+        Route::delete('/{id}/delete', [WishlistsController::class, 'destroy'])->name('admin.wishlists.destroy');
     });
 });

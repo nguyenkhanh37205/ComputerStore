@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/material-dashboard.css?v=3.2.0') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <div class="admin-container">
         <div class="sidebar">
@@ -26,7 +28,7 @@
                     </li>
                     <li>
                         <a href="{{ route('admin.products.index') }}">
-                            <i class="fas fa-box"></i>  
+                            <i class="fas fa-box"></i>
                             <span>Sản phẩm</span>
                         </a>
                     </li>
@@ -38,18 +40,43 @@
                     </li>
                     <li>
                         <a href="{{ route('admin.categories.index') }}">
-                            <i class="fas fa-list"></i>
+                            <i class="fas fa-th-list"></i>
                             <span>Danh mục sản phẩm</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('admin.brands.index') }}">
-                            <i class="fas fa-list"></i>
+                            <i class="fas fa-tag"></i>
                             <span>Thương hiệu sản phẩm</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.orders.index') }}">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>Đơn hàng</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('admin.cart.index') }}">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span>Giỏ hàng</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.variants.index') }}">
+                            <i class="fas fa-cogs"></i>
+                            <span>Biến thể sản phẩm</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.wishlists.index') }}">
+                            <i class="fas fa-heart"></i>
+                            <span>Danh sách yêu thích</span>
+                        </a>
+                    </li>
                     <li class="sign-out">
-                        <a href="#">
+                        <a href="{}">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Đăng xuất</span>
                         </a>
@@ -68,13 +95,14 @@
                     <p>Xin chào, Quản trị viên</p>
                 </div>
             </div>
-            
+
             <div class="content-area">
                 @yield('content')
-                
-                </div>
+
+            </div>
         </div>
-       
+
     </div>
 </body>
+
 </html>
