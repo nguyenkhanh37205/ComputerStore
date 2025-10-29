@@ -33,14 +33,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="form-group half-width">
-                    <label for="stock">Số lượng tồn kho:</label>
-                    <input type="number" id="stock" name="stock" class="form-control" value="{{ old('stock') }}" required
-                        min="0">
-                    @error('stock')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
+                
             </div>
 
             {{-- Loại (Category) --}}

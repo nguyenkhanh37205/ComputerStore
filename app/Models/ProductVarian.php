@@ -25,7 +25,6 @@ class ProductVarian extends Model
         'rom',
         'color',
         'price',
-        'stock',
         'image',
     ];
 

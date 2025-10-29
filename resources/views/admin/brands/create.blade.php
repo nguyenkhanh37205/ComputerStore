@@ -8,6 +8,7 @@
 </div>
 
 <div class="form-container">
+    
     {{-- Form gửi dữ liệu đến BrandsController@store --}}
     <form action="{{ route('admin.brands.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -36,7 +37,7 @@
             @enderror
         </div>
 
-        <button type="submit" class="btn btn-primary">Tạo Thương Hiệu</button>
+        <button type="submit" class="btn btn-primary" enctype="multipart/form-data">Tạo Thương Hiệu</button>
         <a href="{{ route('admin.brands.index') }}" class="btn btn-secondary">Hủy</a>
     </form>
 </div>

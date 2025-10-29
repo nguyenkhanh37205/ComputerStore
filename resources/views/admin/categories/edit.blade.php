@@ -9,12 +9,14 @@
     </div>
 
     <div class="form-container">
-        {{-- Form gửi dữ liệu đến CategoriesController@update --}}
-        <form action="{{ route('admin.categories.update', $category->categoryId) }}" method="POST"
-            enctype="multipart/form-data">
+        {{-- ĐÂY LÀ FORM CHÍNH: categories.update --}}
+        <form action="{{ route('admin.categories.update', $category->categoryId) }}" 
+              method="POST"
+              enctype="multipart/form-data">
             @csrf
-            @method('PUT') {{-- Bắt buộc phải có @method('PUT') cho hành động update --}}
+            @method('POST') {{-- BẮT BUỘC --}}
 
+            {{-- Tên danh mục --}}
             <div class="form-group">
                 <label for="categoryName">Tên danh mục:</label>
                 <input type="text" id="categoryName" name="categoryName"
@@ -25,6 +27,7 @@
                 @enderror
             </div>
 
+            {{-- Mô tả --}}
             <div class="form-group">
                 <label for="categoryDescription">Mô tả:</label>
                 <input type="text" id="categoryDescription" name="categoryDescription"
@@ -34,8 +37,31 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Cập Nhật Danh Mục</button>
+
+            {{-- LOGO / IMAGE (Đã sửa name="logo" thành name="image") --}}
+            <div class="form-group">
+                <label>Ảnh hiện tại:</label>
+                @if ($category->image)
+                    <img src="{{ asset($category->image) }}" alt="Ảnh hiện tại"
+                        style="width: 100px; display: block; margin-bottom: 10px;">
+                @else
+                    <p>Không có ảnh.</p>
+                @endif
+                
+                {{-- SỬA: name="logo" thành name="image" để khớp với Controller --}}
+                <label for="image">Ảnh Danh mục:</label>
+                <input type="file" id="image" name="image" 
+                    class="form-control @error('image') is-invalid @enderror" 
+                    accept="image/*">
+                @error('image')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            {{-- NÚT BẤM (Đã loại bỏ Form lồng, sử dụng nút BẤM TRỰC TIẾP) --}}
+            <button type="submit" class="btn btn-update">Cập nhật danh mục</button>
             <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Hủy</a>
+            
         </form>
     </div>
 @endsection

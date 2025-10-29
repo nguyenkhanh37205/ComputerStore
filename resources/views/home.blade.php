@@ -26,32 +26,32 @@
                     <div class="account-menu">
                         <a href="#" class="login-icon">
                             @auth
-                                @if(Auth::user()->image)
-                                    <img src="{{ asset(Auth::user()->image) }}" alt="Avatar"
-                                        style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 8px;">
-                                @else
-                                    <i class="fas fa-user-circle" style="font-size: 30px;"></i>
-                                @endif
-                                <span>{{ Auth::user()->username }}</span>
+                            @if(Auth::user()->image)
+                            <img src="{{ asset(Auth::user()->image) }}" alt="Avatar"
+                                style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 8px;">
                             @else
-                                <i class="fas fa-user-circle"></i>
-                                <span>Tài khoản</span>
+                            <i class="fas fa-user-circle" style="font-size: 30px;"></i>
+                            @endif
+                            <span>{{ Auth::user()->username }}</span>
+                            @else
+                            <i class="fas fa-user-circle"></i>
+                            <span>Tài khoản</span>
                             @endauth
                         </a>
 
                         <div class="dropdown-login">
                             @auth
-                                <a href="{{ url('profile') }}">Hồ sơ cá nhân</a>
-                                <form action="{{ route('logout') }}" method="POST" style="display:inline">
-                                    @csrf
-                                    <button type="submit"
-                                        style="background:none;border:none;padding:0;color:#007bff;cursor:pointer;">
-                                        Đăng xuất
-                                    </button>
-                                </form>
+                            <a href="{{ url('profile') }}">Hồ sơ cá nhân</a>
+                            <form action="{{ route('logout') }}" method="POST" style="display:inline">
+                                @csrf
+                                <button type="submit"
+                                    style="background:none;border:none;padding:0;color:#007bff;cursor:pointer;">
+                                    Đăng xuất
+                                </button>
+                            </form>
                             @else
-                                <a href="{{ route('login.form') }}">Đăng nhập</a>
-                                <a href="{{ route('register.form') }}">Đăng ký</a>
+                            <a href="{{ route('login.form') }}">Đăng nhập</a>
+                            <a href="{{ route('register.form') }}">Đăng ký</a>
                             @endauth
                         </div>
                     </div>
@@ -131,6 +131,7 @@
                 <span class="dot" data-index="2"></span>
             </div>
         </div>
+        <!-- </div> -->
     </section>
 
     <main>
@@ -209,60 +210,71 @@
 
         <section class="product-section viewed-products">
             <div class="container">
-                {{-- --- HIỂN THỊ THEO THƯƠNG HIỆU --- --}}
-                @foreach($productsByBrand as $brandName => $brandProducts)
-                    <div class="section-header">
-                        <h2>{{ $brandName }}</h2>
-                    </div>
-
-                    <div class="product-list-container">
-                        <div class="product-list">
-                            @foreach($brandProducts as $product)
-                                {{-- Lấy variant đầu tiên (ví dụ hiển thị bản mặc định) --}}
-                                @php
-                                    $variant = optional($product->variants)->first();
-                                 @endphp
-
-                                @if($variant)
-                                    <div class="product-card">
-                                        <div class="product-header">
-                                            {{-- Nếu có giảm giá --}}
-                                            @if(isset($variant->old_price) && $variant->old_price > $variant->price)
-                                                <span class="save-badge">
-                                                    Tiết kiệm<br>
-                                                    <b>{{ number_format($variant->old_price - $variant->price, 0, ',', '.') }} ₫</b>
-                                                </span>
-                                            @endif
-                                            <button class="favorite-btn"><i class="far fa-heart"></i></button>
-                                        </div>
-
-                                        <img src="{{ asset('storage/images/' . ($variant->image ?? $product->image)) }}"
-                                            alt="{{ $product->productName }}" class="product-img">
-
-                                        <div class="product-info">
-                                            <p class="brand">{{ $product->brand->brandName ?? '' }}</p>
-                                            <h4 class="product-name">{{ $product->productName }}</h4>
-                                            <p class="variant-info">
-                                                {{ $variant->ram ?? '' }} / {{ $variant->rom ?? '' }} / {{ $variant->color ?? '' }}
-                                            </p>
-                                            <div class="price-info">
-                                                <p class="current-price">{{ number_format($variant->price, 0, ',', '.') }} ₫</p>
-                                                @if(isset($variant->old_price) && $variant->old_price > $variant->price)
-                                                    <p class="old-price">{{ number_format($variant->old_price, 0, ',', '.') }} ₫</p>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <a href="#" class="contact-link">Thêm giỏ hàng</a>
-                                    </div>
-                                @endif
-                            @endforeach
+                <div class="section-header">
+                    <h2>Sản phẩm vừa xem</h2>
+                </div>
+                <div class="product-list-container">
+                    <div class="product-list">
+                        <div class="product-card">
+                            <div class="product-header">
+                                <span class="save-badge">Tiết kiệm<br><b>10.000.000 ₫</b></span>
+                                <button class="favorite-btn"><i class="far fa-heart"></i></button>
+                            </div>
+                            <img src="../public/images/msi-laptop.jpg" alt="Laptop MSI Titan 18 Hx" class="product-img">
+                            <div class="product-info">
+                                <p class="brand">MSI</p>
+                                <h4 class="product-name">Laptop MSI Titan 18 HX AI A2XWIG-090VN (Ultra 9-285HX/...)
+                                </h4>
+                                <div class="price-info">
+                                    <p class="current-price">139.990.000 ₫</p>
+                                    <p class="old-price">149.990.000 ₫</p>
+                                    <span class="discount">-7%</span>
+                                </div>
+                            </div>
+                            <a href="#" class="contact-link">Thêm giỏ hàng</a>
                         </div>
                     </div>
-                @endforeach
+                    <button class="slide-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slide-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
             </div>
         </section>
 
-
+        <section class="product-section pc-products">
+            <div class="container">
+                <div class="section-header">
+                    <h2>PC</h2>
+                    <a href="#" class="view-all-link">
+                        <span>Xem tất cả</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+                <div class="product-list-container">
+                    <div class="product-list">
+                        <div class="product-card">
+                            <div class="product-header">
+                                <span class="save-badge">Tiết kiệm<br><b>3.000.000 ₫</b></span>
+                                <button class="favorite-btn"><i class="far fa-heart"></i></button>
+                            </div>
+                            <img src="../public/images/pc-1.jpg" alt="PC Gaming Apollo E007-1" class="product-img">
+                            <div class="product-info">
+                                <p class="brand">PHONG VŨ</p>
+                                <h4 class="product-name">PC PV Gaming Apollo E007-1 (Intel Core i3-12100F/ Radeon RX
+                                    6500 XT/...)</h4>
+                                <div class="price-info">
+                                    <p class="current-price">9.990.000 ₫</p>
+                                    <p class="old-price">12.990.000 ₫</p>
+                                    <span class="discount">-23%</span>
+                                </div>
+                            </div>
+                            <button class="add-to-cart-btn">Thêm vào giỏ</button>
+                        </div>
+                    </div>
+                    <button class="slide-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slide-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
 
 
     </main>

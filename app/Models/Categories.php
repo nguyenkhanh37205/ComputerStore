@@ -20,6 +20,7 @@ class Categories extends Model
      */
     protected $fillable = [
         'categoryName',
+        'image',
         'categoryDescription',
     ];
 

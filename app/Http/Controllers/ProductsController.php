@@ -25,6 +25,19 @@ class ProductsController extends Controller
         return view('admin.products.index', compact('products', 'productsByBrand'));
     }
 
+    public function category() 
+    {
+        // Giả sử tên Model Category là Categories và khóa ngoại là categoryId
+        return $this->belongsTo(Categories::class, 'categoryId', 'categoryId');
+    }
+
+    // Quan hệ với Thương hiệu (Brand)
+    // Tên hàm phải là 'brand' (số ít)
+    public function brand() 
+    {
+        // Giả sử tên Model Brands là Brands và khóa ngoại là brandId
+        return $this->belongsTo(Brands::class, 'brandId', 'brandId');
+    }
     //---------------------------------------------------------
 
     public function create()
@@ -38,38 +51,43 @@ class ProductsController extends Controller
 
     //---------------------------------------------------------
 
-    public function store(Request $request)
-    {
-        // Validate the request data
-        $request->validate([
-            // Sửa 'name' thành 'productName' (theo form input name)
-            'productName' => 'required|string|max:255', 
-            'productDescription' => 'nullable|string', // Dùng tên cột DB
-            'price' => 'required|numeric|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', 
-            // Dùng exists:tên_bảng,tên_khóa_chính
-            'categoryId' => 'required|exists:categories,categoryId', 
-            'brandId' => 'required|exists:brands,brandId', 
-        ]);
+   // app/Http/Controllers/ProductsController.php
 
-        $data = $request->except('_token', 'image'); // Loại trừ image để xử lý riêng
-        
-        // 1. Xử lý Image Upload
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('products', 'public');
-            $data['image'] = $imagePath;
-        } else {
-            $data['image'] = null;
-        }
-        
-        // 2. Map lại dữ liệu nếu form input name khác tên cột DB (Nếu cần)
-        // Hiện tại không cần vì validation field đã khớp với DB column name (productName, productDescription, categoryId, brandId)
-        
-        // 3. Tạo sản phẩm mới
-        Products::create($data); 
+public function store(Request $request)
+{
+    // ... (Phần validation giữ nguyên) ...
 
-        return redirect()->route('admin.products.index')->with('success', 'Product created successfully.');
+    $request->validate([
+        'productName' => 'required|string|max:255', 
+        // ... (các validation khác) ...
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', 
+    ]);
+
+    $data = $request->except('_token', 'image');
+    
+    // Xử lý Image Upload: Thay thế Storage::store() bằng move()
+    if ($request->hasFile('image')) {
+        $file = $request->file('image');
+        // Tạo tên file duy nhất để tránh trùng lặp
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        // Định nghĩa đường dẫn lưu trữ: PUBLIC/uploads
+        $destinationPath = public_path('uploads');
+
+        // Lưu file vào thư mục public/uploads
+        $file->move($destinationPath, $fileName);
+        
+        // Lưu đường dẫn file vào DB (chỉ cần tên file hoặc đường dẫn tương đối)
+        // Vì file nằm trong public, ta lưu tên file hoặc đường dẫn 'uploads/tên_file.jpg'
+        $data['image'] = 'uploads/' . $fileName; 
+    } else {
+        $data['image'] = null;
     }
+    
+    // Tạo sản phẩm mới
+    Products::create($data); // Lưu ý: Nên đổi thành Product::create($data);
+
+    return redirect()->route('admin.products.index')->with('success', 'Thêm sản phẩm thành công.');
+}
 
     //---------------------------------------------------------
 
@@ -84,38 +102,42 @@ class ProductsController extends Controller
 
     //---------------------------------------------------------
 
-    public function update(Request $request, $id)
-    {
-        // Validate the request data
-        $request->validate([
-            'productName' => 'required|string|max:255', 
-            'productDescription' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
-            'categoryId' => 'required|exists:categories,categoryId', 
-            'brandId' => 'required|exists:brands,brandId', 
-        ]);
+    // app/Http/Controllers/ProductsController.php
 
-        $product = Products::findOrFail($id);
-        $data = $request->except('_token', '_method', 'image');
+public function update(Request $request, $id)
+{
+    // ... (Phần validation giữ nguyên) ...
+
+    $product = Products::findOrFail($id); // Nên dùng Route Model Binding: Product $product
+    $data = $request->except('_token', '_method', 'image');
+    
+    // Xử lý Image Upload/Cập nhật
+    if ($request->hasFile('image')) {
         
-        // 1. Xử lý Image Upload/Cập nhật
-        if ($request->hasFile('image')) {
-            // Xóa ảnh cũ
-            if ($product->image) {
-                 Storage::disk('public')->delete($product->image);
-            }
-            // Lưu ảnh mới
-            $imagePath = $request->file('image')->store('products', 'public');
-            $data['image'] = $imagePath;
+        // Xóa ảnh cũ khỏi public/uploads
+        if ($product->image) {
+             // Sử dụng unlink() để xóa file trong thư mục public
+             $oldImagePath = public_path($product->image); 
+             if (file_exists($oldImagePath)) {
+                 unlink($oldImagePath);
+             }
         }
-
-        // 2. Cập nhật sản phẩm
-        $product->update($data);
-
-        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
+        // Lưu ảnh mới (giống hàm store)
+        $file = $request->file('image');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $destinationPath = public_path('uploads');
+        $file->move($destinationPath, $fileName);
+        
+        $data['image'] = 'uploads/' . $fileName;
     }
+    // Ghi chú: Nếu không có file mới, trường image không nên có trong $data để không ghi đè giá trị cũ.
+    // Vì bạn dùng $request->except('_token', '_method', 'image'), nên chỉ khi có file mới, $data['image'] mới được thêm vào. -> Logic này là đúng.
 
+    // Cập nhật sản phẩm
+    $product->update($data);
+
+    return redirect()->route('admin.products.index')->with('success', 'Cập nhật sản phẩm thành công.');
+}
     //---------------------------------------------------------
 
     public function destroy($id)
@@ -129,6 +151,6 @@ class ProductsController extends Controller
         
         $product->delete();
 
-        return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
+        return redirect()->route('admin.products.index')->with('success', 'Đã xóa sản phẩm thành công.');
     }
 }

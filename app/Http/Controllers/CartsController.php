@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carts;
 use Illuminate\Http\Request;
-use App\Models\Cart; // Import Model Cart
 use Illuminate\Support\Facades\Auth; // Để lấy userId của người dùng đang đăng nhập
 
 class CartsController extends Controller
@@ -22,7 +22,7 @@ public function indexadmin()
         // 2. Lấy dữ liệu dựa trên vai trò
         if ($role === 'admin') {
             // 🟢 ADMIN: Lấy tất cả giỏ hàng của mọi người dùng
-            $cartItems = Cart::with(['user', 'variant.product'])
+            $cartItems = Carts::with(['user', 'variant.product'])
                              ->orderBy('userId', 'desc')
                              ->get();
             
@@ -31,7 +31,7 @@ public function indexadmin()
 
         } else {
             // 🟡 CUSTOMER: Chỉ lấy giỏ hàng của người dùng hiện tại
-            $cartItems = Cart::where('userId', $userId)
+            $cartItems = Carts::where('userId', $userId)
                              ->with(['user', 'variant.product'])
                              ->get();
             
@@ -65,7 +65,7 @@ public function indexadmin()
         $quantity = $request->quantity;
 
         // 1. Kiểm tra xem sản phẩm này đã có trong giỏ hàng chưa
-        $cartItem = Cart::where('userId', $userId)
+        $cartItem = Carts::where('userId', $userId)
                         ->where('variantId', $variantId)
                         ->first();
 
@@ -75,7 +75,7 @@ public function indexadmin()
             $cartItem->save();
         } else {
             // Nếu chưa, tạo item mới
-            Cart::create([
+            Carts::create([
                 'userId' => $userId,
                 'variantId' => $variantId,
                 'quantity' => $quantity,
@@ -99,7 +99,7 @@ public function indexadmin()
             'quantity' => 'required|integer|min:1', 
         ]);
 
-        $cartItem = Cart::where('cartId', $id)
+        $cartItem = Carts::where('cartId', $id)
                         ->where('userId', Auth::id()) // Đảm bảo chỉ user của mình mới được sửa
                         ->firstOrFail();
 
@@ -119,7 +119,7 @@ public function indexadmin()
             return response()->json(['error' => 'Vui lòng đăng nhập.'], 401);
         }
         
-        $cartItem = Cart::where('cartId', $id)
+        $cartItem = Carts::where('cartId', $id)
                         ->where('userId', Auth::id()) // Đảm bảo chỉ user của mình mới được xóa
                         ->firstOrFail();
 

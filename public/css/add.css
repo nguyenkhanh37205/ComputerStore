@@ -54,12 +54,12 @@
     margin-right: 10px;
 }
 
-.btn-primary {
+.btn-update {
     background-color: #007bff;
     color: white;
 }
 
-.btn-primary:hover {
+.btn-update:hover {
     background-color: #0056b3;
 }
 
@@ -105,3 +105,6 @@
     color: white;
     text-decoration: none;
 }
+/* -- CSS cho nút Cập nhật -- */
+
+

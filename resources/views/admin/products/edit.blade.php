@@ -44,14 +44,7 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-group half-width">
-                <label for="stock">Số lượng tồn kho:</label>
-                <input type="number" id="stock" name="stock" class="form-control" 
-                       value="{{ old('stock', $product->stock) }}" required min="0">
-                @error('stock')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+
         </div>
 
         {{-- Loại (Category) --}}
@@ -92,7 +85,7 @@
         <div class="form-group">
             <label>Hình ảnh hiện tại:</label>
             @if ($product->image)
-                <img src="{{ asset('storage/' . $product->image) }}" alt="Ảnh hiện tại" style="width: 100px; display: block; margin-bottom: 10px;">
+                <img src="{{ asset($product->image) }}" alt="Ảnh hiện tại" style="width: 100px; display: block; margin-bottom: 10px;">
             @else
                 <p>Không có ảnh.</p>
             @endif
@@ -104,8 +97,10 @@
             @enderror
         </div>
 
-        <button type="submit" class="btn btn-primary">Cập nhật Sản phẩm</button>
-        <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Hủy</a>
+            <button type="submit" class="btn btn-update">Cập nhật</button>
+            <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Hủy</a>
+  
+        
     </form>
 </div>
 @endsection

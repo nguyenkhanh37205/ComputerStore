@@ -52,6 +52,6 @@ class Variants extends Model
     public function carts()
     {
         // Khóa ngoại là variantId (trong bảng carts), khóa chính của Variant là variantId
-        return $this->hasMany(Cart::class, 'variantId', 'variantId');
+        return $this->hasMany(Carts::class, 'variantId', 'variantId');
     }
 }
