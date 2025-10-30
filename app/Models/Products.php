@@ -41,4 +41,10 @@ class Products extends Model
         // Khóa ngoại là brandId, khóa chính của Brand là brandId
         return $this->belongsTo(Brands::class, 'brandId', 'brandId');
     }
+
+    public function variants()
+    {
+        // Một sản phẩm có nhiều biến thể (variants)
+        return $this->hasMany(Variants::class, 'productId', 'productId');
+    }
 }

@@ -38,6 +38,8 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 
 // phần người dùng
 Route::get('/', [ClientController::class, 'getAllProducts'])->name('client.home');
+Route::get('/profile', [ClientController::class, 'showProfile'])->name('client.profile');
+
 
 // phần admin 
 Route::get('/index', [IndexController::class, 'index']);

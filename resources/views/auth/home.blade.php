@@ -24,7 +24,7 @@
                 </div>
                 <div class="user-actions">
                     <div class="account-menu">
-                        <a href="#" class="login-icon">
+                        <a href="" class="login-icon">
                             @auth
                             @if(Auth::user()->image)
                             <img src="{{ asset(Auth::user()->image) }}" alt="Avatar"
@@ -209,7 +209,7 @@
 
         <section class="product-section viewed-products">
             <div class="container">
-                {{-- --- HIỂN THỊ THEO THƯƠNG HIỆU --- --}}
+                {{-- --- HIỂN THỊ THEO TỪNG THƯƠNG HIỆU --- --}}
                 @foreach($productsByBrand as $brandName => $brandProducts)
                 <div class="section-header">
                     <h2>{{ $brandName }}</h2>
@@ -218,12 +218,24 @@
                 <div class="product-list-container">
                     <div class="product-list">
                         @foreach($brandProducts as $product)
-                        {{-- Lấy variant đầu tiên (ví dụ hiển thị bản mặc định) --}}
+                        {{-- Lấy variant đầu tiên (nếu có) --}}
                         @php
-                        $variant = $product->variants->first();
+                        $variant = optional($product->variants)->first();
+
+                        // Nếu sản phẩm chưa có variant, dùng dữ liệu gốc từ bảng products
+                        if (!$variant) {
+                        $variant = (object)[
+                        'price' => $product->price,
+                        'image' => $product->image,
+                        'ram' => null,
+                        'rom' => null,
+                        'color' => null,
+                        'old_price' => null,
+                        ];
+                        }
                         @endphp
 
-                        @if($variant)
+                        {{-- Hiển thị sản phẩm --}}
                         <div class="product-card">
                             <div class="product-header">
                                 {{-- Nếu có giảm giá --}}
@@ -236,15 +248,24 @@
                                 <button class="favorite-btn"><i class="far fa-heart"></i></button>
                             </div>
 
+                            {{-- Ảnh sản phẩm --}}
                             <img src="{{ asset('storage/images/' . ($variant->image ?? $product->image)) }}"
                                 alt="{{ $product->productName }}" class="product-img">
 
+                            {{-- Thông tin sản phẩm --}}
                             <div class="product-info">
                                 <p class="brand">{{ $product->brand->brandName ?? '' }}</p>
                                 <h4 class="product-name">{{ $product->productName }}</h4>
+
+                                {{-- Thông tin variant (nếu có) --}}
+                                @if($variant->ram || $variant->rom || $variant->color)
                                 <p class="variant-info">
-                                    {{ $variant->ram ?? '' }} / {{ $variant->rom ?? '' }} / {{ $variant->color ?? '' }}
+                                    {{ $variant->ram ?? '' }} {{ $variant->ram ? '/' : '' }}
+                                    {{ $variant->rom ?? '' }} {{ $variant->rom ? '/' : '' }}
+                                    {{ $variant->color ?? '' }}
                                 </p>
+                                @endif
+
                                 <div class="price-info">
                                     <p class="current-price">{{ number_format($variant->price, 0, ',', '.') }} ₫</p>
                                     @if(isset($variant->old_price) && $variant->old_price > $variant->price)
@@ -252,17 +273,15 @@
                                     @endif
                                 </div>
                             </div>
+
                             <a href="#" class="contact-link">Thêm giỏ hàng</a>
                         </div>
-                        @endif
                         @endforeach
                     </div>
                 </div>
                 @endforeach
             </div>
         </section>
-
-
 
 
     </main>
@@ -273,6 +292,7 @@
                 <div class="footer-intro">
                     <p class="intro-title">Hệ thống Máy Tính Minh Thường Computer</p>
                     <p class="intro-text">Bao gồm Cửa hàng MTC</p>
+                    <p class="intro-text">Cửa hàng NVK</p>
                     <a href="#" class="view-store-link">Xem danh sách cửa hàng</a>
                 </div>
                 <div class="footer-columns">
@@ -322,12 +342,12 @@
                     <div class="footer-column">
                         <h4>HỖ TRỢ THANH TOÁN</h4>
                         <div class="payment-methods">
-                            <img src="../public/images/payment-icons.png" alt="Các phương thức thanh toán"
+                            <img src="{{ asset('images/payment-icons.png') }}" alt="Các phương thức thanh toán"
                                 class="payment-icons">
                         </div>
                         <h4>CHỨNG NHẬN</h4>
                         <div class="certifications">
-                            <img src="../public/images/cert-icons.png" alt="Các chứng nhận" class="cert-icons">
+                            <img src="{{ asset('images/cert-icons.png') }}" alt="Các chứng nhận" class="cert-icons">
                         </div>
                     </div>
                 </div>
@@ -335,9 +355,9 @@
                     <div class="fpt-retail">
                         <p>WEBSITE CÙNG MTC</p>
                         <div class="partner-logos">
-                            <img src="../public/images/f-studio.png" alt="F.Studio">
-                            <img src="../public/images/f-care.png" alt="F.Care">
-                            <img src="../public/images/long-chau.png" alt="Nhà thuốc Long Châu">
+                            <img src="{{ asset('images/f-studio.png') }}" alt="F.Studio">
+                            <img src="{{ asset('images/f-care.png') }}" alt="F.Care">
+                            <img src="{{ asset('images/long-chau.png') }}" alt="Nhà thuốc Long Châu">
                         </div>
                     </div>
                     <div class="search-keywords">
@@ -350,8 +370,8 @@
         </div>
         <div class="copyright-section">
             <div class="container">
-                <p>© 2007 - 2024 Công Ty Cổ Phần Bán Lẻ Kỹ Thuật Số FPT • Địa chỉ: 261 - 263 Khánh Hội, P. Vĩnh Hội,
-                    TP. Hồ Chí Minh • GPĐKKD số 031609355 do Sở KHĐT TP.HCM cấp ngày 06/03/2012.</p>
+                <p>© 2007 - 2024 Công Ty Cổ Phần Bán Lẻ Kỹ Thuật Số NVK • Địa chỉ: ngõ 4/2 Cầu Tó, Thanh Trì,
+                    TP. Hà Nội • GPĐKKD số 031609355 do Sở KHĐT TP.Hà Nội cấp ngày 06/03/2012.</p>
             </div>
         </div>
     </footer>

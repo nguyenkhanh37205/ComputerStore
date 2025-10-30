@@ -43,7 +43,7 @@ class Variants extends Model
     public function product()
     {
         // Khóa ngoại là productId (trong bảng variants), khóa chính của Product là productId
-        return $this->belongsTo(Product::class, 'productId', 'productId'); 
+        return $this->belongsTo(Products::class, 'productId', 'productId'); 
     }
     
     /**

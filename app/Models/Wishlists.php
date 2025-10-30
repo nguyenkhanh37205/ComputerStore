@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Wishlist extends Model
+class Wishlists extends Model
 {
     use HasFactory;
 
@@ -30,8 +30,8 @@ class Wishlist extends Model
      */
     public function user()
     {
-        // Khóa ngoại là userId, khóa chính của Users là userId
-        return $this->belongsTo(Users::class, 'userId', 'userId'); 
+        // Khóa ngoại là userId, khóa chính của User là userId
+        return $this->belongsTo(User::class, 'userId', 'userId'); 
     }
 
     /**
@@ -40,6 +40,6 @@ class Wishlist extends Model
     public function product()
     {
         // Khóa ngoại là productId, khóa chính của Product là productId
-        return $this->belongsTo(Product::class, 'productId', 'productId');
+        return $this->belongsTo(Products::class, 'productId', 'productId');
     }
 }

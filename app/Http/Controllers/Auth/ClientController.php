@@ -21,5 +21,9 @@ class ClientController extends Controller{
         return view('auth.home', compact('products', 'productsByBrand', 'productsByCategory'));
         
     }
+
+    public function showProfile(){
+        return view('auth.profile');
+    }
     
 }
