@@ -39,6 +39,15 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 // phần người dùng
 Route::get('/', [ClientController::class, 'getAllProducts'])->name('client.home');
 Route::get('/profile', [ClientController::class, 'showProfile'])->name('client.profile');
+// Hiển thị giỏ (nếu bạn dùng indexadmin hoặc showCart -> đặt tên cart.show)
+    Route::get('/cart', [CartController::class, 'indexadmin'])->name('cart.show');
+
+    // Thêm sản phẩm vào giỏ (POST)
+    Route::post('/cart/store', [CartController::class, 'store'])->name('cart.store');
+
+    // Cập nhật/xóa (nếu dùng)
+    Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+    Route::post('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
 
 // phần admin 

@@ -51,11 +51,11 @@
                             </form>
                             @else
                             <a href="{{ route('login.form') }}">Đăng nhập</a>
-                            <a href="{{ route('register.form') }}">Đăng ký</a>
+                            <!-- <a href="{{ route('register.form') }}">Đăng ký</a> -->
                             @endauth
                         </div>
                     </div>
-                    <a href="#" class="cart-icon">
+                    <a href="{{ url('cart') }}" class="cart-icon">
                         <i class="fas fa-shopping-cart"></i>
                         <span>Giỏ hàng</span>
                     </a>
@@ -273,8 +273,11 @@
                                     @endif
                                 </div>
                             </div>
-
-                            <a href="#" class="contact-link">Thêm giỏ hàng</a>
+                            <form action="{{ route('cart.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="variantId" value="{{ $variant->variantId ?? null }}">
+                                <button type="submit" class="contact-link">Thêm giỏ hàng</button>
+                            </form>
                         </div>
                         @endforeach
                     </div>
