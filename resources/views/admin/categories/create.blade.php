@@ -20,6 +20,13 @@
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
+        <div class="form-group" >
+            <label for="logo">Hình Ảnh</label>
+            <input type="file" id="logo" name="logo" class="form-control @error('logo') is-invalid @enderror" accept="image/*">
+            @error('logo')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
 
         <div class="form-group">
             <label for="categoryDescription">Mô tả:</label>

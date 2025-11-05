@@ -5,6 +5,7 @@
     <h1>Thêm Mới Người Dùng</h1>
     <br> <p class="quay"><a href="{{ route('admin.users.index') }}">Danh sách người dùng</a></p>
     <link rel="stylesheet" href="{{ asset('css/add.css') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" type="image/png" />
 </div>
 
 <div class="form-container">

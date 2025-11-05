@@ -7,13 +7,16 @@
     </div>
 
     <div class="table-container">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <table>
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Tên</th>
-                    <th>Mô tả</th>
                     <th>Logo</th>
+                    <th>Mô tả</th>
                     <th>Hành động</th>
                 </tr>
             </thead>
@@ -28,7 +31,11 @@
                             <td>{{ $brand->brandId }}</td>
                             <td>{{ $brand->brandName }}</td>
                             <td>
-                                <img src="{{ asset('storage/' . $brand->logo) }}" alt="{{ $brand->brandName }}" width="100">
+                                @if($brand->logo)
+                                    <img src="{{ asset($brand->logo) }}" alt="{{ $brand->brandName }}" style="max-width: 80px;">
+                                @else
+                                    Không có logo
+                                @endif
                             </td>
                             <td>{{ $brand->brandDescription }}</td>
 
@@ -50,4 +57,15 @@
             </tbody>
         </table>
     </div>
+    <script src="{{ asset('js/notifications.js') }}"></script>
+    <script>
+        @if (Session::has('success'))
+            // Gọi hàm JS từ file notification.js
+            showToast('success', "{{ Session::get('success') }}");
+        @endif
+
+        @if (Session::has('error'))
+            showToast('error', "{{ Session::get('error') }}");
+        @endif
+    </script>
 @endsection

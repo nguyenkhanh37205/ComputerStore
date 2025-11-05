@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductVarian extends Model
+class ProductVariant extends Model
 {
     use HasFactory;
 
-    protected $table = 'productvarians';
+    protected $table = 'productvariants';
     protected $primaryKey = 'varianId';
 
     // Tắt auto created_at / updated_at vì bảng không có hai cột này
@@ -25,7 +25,6 @@ class ProductVarian extends Model
         'rom',
         'color',
         'price',
-        'stock',
         'image',
     ];
 

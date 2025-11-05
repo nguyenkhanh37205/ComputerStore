@@ -61,7 +61,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/create', [ProductsController::class, 'create'])->name('admin.products.create');
         Route::post('/store', [ProductsController::class, 'store'])->name('admin.products.store');
         Route::get('/{id}/edit', [ProductsController::class, 'edit'])->name('admin.products.edit');
-        Route::post('/{id}/update', [ProductsController::class, 'update'])->name('admin.products.update');
+        Route::put('/{id}/update', [ProductsController::class, 'update'])->name('admin.products.update');
         Route::delete('/{id}/delete', [ProductsController::class, 'destroy'])->name('admin.products.destroy');
     });
     // phần quản lý danh mục
@@ -92,7 +92,7 @@ Route::prefix('admin')->group(function () {
         Route::delete('/{id}/delete', [UsersController::class, 'destroy'])->name('admin.users.destroy');
     });
     // phần quản lý giỏ hàng
-    Route::prefix('/cart')->group(function () {
+    Route::prefix('/carts')->group(function () {
         Route::get('/', [CartController::class, 'index'])->name('admin.cart.index');
         Route::post('/store', [CartController::class, 'store'])->name('admin.cart.store');
         Route::post('/{id}/update', [CartController::class, 'update'])->name('admin.cart.update');

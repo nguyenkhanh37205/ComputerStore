@@ -50,9 +50,13 @@
                                 </button>
                             </form>
                             @else
-                            <a href="{{ route('login.form') }}">Đăng nhập</a>
-                            <!-- <a href="{{ route('register.form') }}">Đăng ký</a> -->
-                            @endauth
+                            <<<<<<< HEAD <a href="{{ route('login.form') }}">Đăng nhập</a>
+                                <!-- <a href="{{ route('register.form') }}">Đăng ký</a> -->
+                                =======
+                                <a href="{{ route('login.form') }}">Đăng nhập</a>
+                                <a href="{{ route('register.form') }}">Đăng ký</a>
+                                >>>>>>> f2a474be1eb04648252bf865b1db94401582a6e8
+                                @endauth
                         </div>
                     </div>
                     <a href="{{ url('cart') }}" class="cart-icon">
@@ -281,9 +285,8 @@
                         </div>
                         @endforeach
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
-            </div>
         </section>
 
 

@@ -45,6 +45,6 @@ class Products extends Model
     public function variants()
     {
         // Một sản phẩm có nhiều biến thể (variants)
-        return $this->hasMany(Variants::class, 'productId', 'productId');
+        return $this->hasMany(ProductVariant::class, 'productId', 'productId');
     }
 }

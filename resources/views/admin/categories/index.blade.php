@@ -7,11 +7,16 @@
     </div>
 
     <div class="table-container">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
         <table>
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Tên</th>
+                    <th>Hình ảnh</th>
                     <th>Mô tả</th>
                     <th>Hành động</th>
                 </tr>
@@ -26,6 +31,13 @@
                         <tr>
                             <td>{{ $category->categoryId }}</td>
                             <td>{{ $category->categoryName }}</td>
+                            <td>
+                                @if($category->image)
+                                    <img src="{{ asset($category->image) }}" alt="{{ $category->categoryName }}" style="max-width: 80px;">
+                                @else
+                                    <span class="no-image">Không có hình ảnh</span>
+                                @endif
+                            </td>
                             <td>{{ $category->categoryDescription }}</td>
 
                             <td>
@@ -46,4 +58,15 @@
             </tbody>
         </table>
     </div>
+    <script src="{{ asset('js/notifications.js') }}"></script>
+    <script>
+        @if (Session::has('success'))
+            // Gọi hàm JS từ file notification.js
+            showToast('success', "{{ Session::get('success') }}");
+        @endif
+
+        @if (Session::has('error'))
+            showToast('error', "{{ Session::get('error') }}");
+        @endif
+    </script>
 @endsection

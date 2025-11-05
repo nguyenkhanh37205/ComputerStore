@@ -12,7 +12,7 @@
         {{-- Form gửi dữ liệu đến BrandsController@update --}}
         <form action="{{ route('admin.brands.update', $brand->brandId) }}" method="POST" enctype="multipart/form-data">
             @csrf
-            @method('PUT') {{-- Bắt buộc phải có @method('PUT') cho hành động update --}}
+            @method('POST') {{-- Bắt buộc phải có @method('PUT') cho hành động update --}}
 
             <div class="form-group">
                 <label for="brandName">Tên thương hiệu:</label>
@@ -35,6 +35,13 @@
             </div>
 
             <div class="form-group">
+                <label>Logo hiện tại:</label>
+                @if ($brand->logo)
+                    <img src="{{ asset($brand->logo) }}" alt="Ảnh hiện tại"
+                        style="width: 100px; display: block; margin-bottom: 10px;">
+                @else
+                    <p>Không có logo.</p>
+                @endif
                 <label for="logo">Logo:</label>
                 <input type="file" id="logo" name="logo" class="form-control @error('logo') is-invalid @enderror"
                     accept="image/*">
@@ -43,10 +50,9 @@
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-primary">Cập Nhật Thương Hiệu</button>
-            <a href="{{ route('admin.brands.index') }}" class="btn btn-secondary">Hủy</a>
+                <button type="submit" class="btn btn-update">Cập nhật thương hiệu</button>
+                <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Hủy</a>
+ư
         </form>
     </div>
 @endsection
-
-

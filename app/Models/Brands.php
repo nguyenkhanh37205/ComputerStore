@@ -31,6 +31,6 @@ class Brands extends Model
     public function products()
     {
         // Khóa ngoại trong bảng products là brandId, khóa chính của Brands là brandId
-        return $this->hasMany(Product::class, 'brandId', 'brandId');
+        return $this->hasMany(Products::class, 'brandId', 'brandId');
     }
 }

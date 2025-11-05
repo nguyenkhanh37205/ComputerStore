@@ -5,13 +5,14 @@
     <h1>Chỉnh Sửa Người Dùng: {{ $user->username }}</h1>
     <br> <p class="quay"><a href="{{ route('admin.users.index') }}">Danh sách người dùng</a></p>
     <link rel="stylesheet" href="{{ asset('css/add.css') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" type="image/png" />
 </div>
 
 <div class="form-container">
     {{-- Form gửi dữ liệu đến UsersController@update --}}
     <form action="{{ route('admin.users.update', $user->userId) }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PUT') {{-- Bắt buộc phải có @method('PUT') cho hành động update --}}
+        @method('POST') {{-- Bắt buộc phải có @method('PUT') cho hành động update --}}
 
         <div class="form-group">
             <label for="username">Tài khoản (Username):</label>
@@ -85,8 +86,10 @@
             <input type="password" id="password_confirmation" name="password_confirmation" class="form-control">
         </div> --}}
 
-        <button type="submit" class="btn btn-primary">Cập Nhật Người Dùng</button>
-        <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Hủy</a>
+            
+            <button type="submit" class="btn btn-update">Cập nhật</button>
+            <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Hủy</a>
+        
     </form>
 </div>
 @endsection
