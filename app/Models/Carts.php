@@ -9,10 +9,8 @@ class Carts extends Model
 {
     use HasFactory;
 
-    protected $table = 'cart';
+    protected $table = 'cart'; 
     protected $primaryKey = 'cartId';
-
-    // Bảng không có updated_at -> tắt timestamps
     public $timestamps = false;
 
     protected $fillable = [
@@ -21,15 +19,28 @@ class Carts extends Model
         'quantity',
     ];
 
-    // Quan hệ: cart thuộc 1 user
+    // Cart thuộc 1 user
     public function user()
     {
         return $this->belongsTo(User::class, 'userId', 'userId');
     }
 
-    // Quan hệ: cart thuộc một variant sản phẩm
+    // Cart thuộc 1 biến thể sản phẩm
     public function variant()
     {
-        return $this->belongsTo(ProductVarian::class, 'variantId', 'variantId');
+        return $this->belongsTo(ProductVariant::class, 'variantId', 'variantId');
+    }
+
+    // Giúp lấy trực tiếp tên sản phẩm
+    public function product()
+    {
+        return $this->hasOneThrough(
+            Products::class,
+            ProductVariant::class,
+            'variantId',
+            'productId',
+            'variantId',
+            'productId'
+        );
     }
 }

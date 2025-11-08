@@ -23,7 +23,7 @@ class ClientController extends Controller{
     }
 
     public function showProfile(){
-        return view('auth.profile');
+        return view('client.profile');
     }
     
 }

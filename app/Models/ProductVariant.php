@@ -10,7 +10,7 @@ class ProductVariant extends Model
     use HasFactory;
 
     protected $table = 'productvariants';
-    protected $primaryKey = 'varianId';
+    protected $primaryKey = 'variantId';
 
     // Tắt auto created_at / updated_at vì bảng không có hai cột này
     public $timestamps = false;
@@ -25,6 +25,7 @@ class ProductVariant extends Model
         'rom',
         'color',
         'price',
+        'stock',
         'image',
     ];
 
