@@ -9,11 +9,11 @@ class Wishlists extends Model
 {
     use HasFactory;
 
-    protected $table = 'wishlists'; 
-    protected $primaryKey = 'wishlistId'; 
+    protected $table = 'wishlists';
+    protected $primaryKey = 'wishlistId';
 
-    public $timestamps = false; 
-    const CREATED_AT = 'createdAt'; // Khai báo tên cột created_at
+    public $timestamps = true;
+    const UPDATED_AT = 'updatedAt'; // Khai báo tên cột updated_at
 
     protected $fillable = [
         'userId',
@@ -31,7 +31,7 @@ class Wishlists extends Model
     public function user()
     {
         // Khóa ngoại là userId, khóa chính của User là userId
-        return $this->belongsTo(User::class, 'userId', 'userId'); 
+        return $this->belongsTo(User::class, 'userId', 'userId');
     }
 
     /**

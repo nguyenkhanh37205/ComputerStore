@@ -24,7 +24,7 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm(): View
     {
-        return view('client.register');
+        return view('auth.register');
     }
 
     /**
@@ -36,6 +36,8 @@ class RegisterController extends Controller
         $request->validate([
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
+            'phone' => 'required|string|max:20',
+            'address' => 'required|string|max:255',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
@@ -43,6 +45,8 @@ class RegisterController extends Controller
         $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
             'password' => Hash::make($request->password),
             'role' => 'customer',
             'image' => null,

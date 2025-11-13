@@ -7,10 +7,15 @@
 
 body {
     background-color: var(--fpt-main-bg);
-    padding-top: 90px;
+    padding-top: 80px;
 }
 
-.container {
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+.container-header {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 15px;

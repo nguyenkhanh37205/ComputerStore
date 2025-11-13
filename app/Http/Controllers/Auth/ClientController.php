@@ -18,12 +18,12 @@ class ClientController extends Controller{
             return $product->categories->categoryName; 
         });
 
-        return view('auth.home', compact('products', 'productsByBrand', 'productsByCategory'));
+        return view('client.home', compact('products', 'productsByBrand', 'productsByCategory'));
         
     }
 
     public function showProfile(){
-        return view('client.profile');
+        return view('auth.profile');
     }
     
 }

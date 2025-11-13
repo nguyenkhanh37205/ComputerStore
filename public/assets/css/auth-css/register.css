@@ -1,0 +1,162 @@
+/* --- Reset cơ bản --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* --- Toàn trang --- */
+body {
+    background: linear-gradient(135deg, #e9f2ff, #f6f9fc);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+}
+
+/* --- Header chính --- */
+.main-header {
+    width: 100%;
+}
+
+/* --- Container form đăng ký --- */
+.container {
+    background: #ffffff;
+    padding: 45px 55px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    max-width: 500px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 40px rgba(0, 123, 255, 0.1);
+}
+
+/* --- Tiêu đề --- */
+h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+/* --- Label --- */
+.form-label {
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 6px;
+}
+
+/* --- Input & Select --- */
+.form-control,
+.form-select {
+    border: 1.8px solid #d8e0ef;
+    border-radius: 12px;
+    padding: 11px 14px;
+    transition: all 0.25s ease;
+    background-color: #fafbff;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #007bff;
+    background-color: #fff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+/* --- Nút đăng ký --- */
+.btn-primary {
+    background: linear-gradient(135deg, #007bff, #005ad1);
+    border: none;
+    padding: 12px 38px;
+    font-size: 16px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 91, 212, 0.2);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0068e0, #004fc4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 91, 212, 0.3);
+}
+
+/* --- Đoạn dưới form --- */
+p {
+    color: #555;
+    font-size: 15px;
+    margin-top: 18px;
+    text-align: center;
+}
+
+p a {
+    color: #007bff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
+/* --- Hiệu ứng khi chọn tỉnh/huyện/xã --- */
+select.form-select {
+    cursor: pointer;
+}
+/* --- Nhóm chọn địa chỉ --- */
+.address-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.address-group .form-select {
+    flex: 1;
+    min-width: 30%;
+    border: 1.8px solid #d8e0ef;
+    border-radius: 10px;
+    padding: 10px;
+    transition: all 0.25s ease;
+    background-color: #fafbff;
+    font-size: 15px;
+}
+
+.address-group .form-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+    background-color: #fff;
+}
+
+/* Responsive — khi màn nhỏ hơn 576px thì chia theo cột */
+@media (max-width: 576px) {
+    .address-group {
+        flex-direction: column;
+    }
+
+    .address-group .form-select {
+        width: 100%;
+    }
+}
+
+
+/* --- Responsive --- */
+@media (max-width: 576px) {
+    .container {
+        padding: 30px 25px;
+        border-radius: 16px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+}

@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Giỏ hàng</title>
-    <link rel="stylesheet" href="{{ asset('assets/css/client-css/cart.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/auth-css/cart.css') }}">
 </head>
 
 <body>
-    @include('auth.layout.header')
+    @include('client.layout.header')
 
     <div class="cart-container">
 
@@ -73,7 +73,7 @@
 
                 <div class="cart-actions">
                     <a href="/" class="back-btn">← Tiếp tục mua hàng</a>
-                    <a href="" class="order-btn">Đặt hàng</a>
+                    <a href="{{ route('checkout.index') }}" class="order-btn">Đặt hàng</a>
                 </div>
 
     </div>
@@ -81,7 +81,7 @@
     @endif
     </div>
 
-    @include('auth.layout.footer')
+    @include('client.layout.footer')
 
     <script>
     const updateQuantityUrl = "{{ route('cart.updateQuantity') }}";

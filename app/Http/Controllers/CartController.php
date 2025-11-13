@@ -30,7 +30,7 @@ class CartController extends Controller
         });
 
         // Trả về view của người dùng
-        return view('client.cart', compact('cartItems', 'subtotal'));
+        return view('auth.cart', compact('cartItems', 'subtotal'));
     }
 
     //phía admin

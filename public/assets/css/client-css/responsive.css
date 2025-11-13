@@ -26,7 +26,7 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .header-top .container {
+    .header-top .container-header {
         flex-wrap: wrap;
         justify-content: center;
         text-align: center;
@@ -47,7 +47,7 @@
         order: 2;
     }
 
-    .header-nav .container {
+    .header-nav .container-header {
         flex-direction: column;
         align-items: flex-start;
     }

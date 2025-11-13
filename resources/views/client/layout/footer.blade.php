@@ -88,6 +88,7 @@
     </div>
 </footer>
 
+<script src="{{  asset('assets/js/search.js') }}"></script>
 <script src="{{  asset('assets/js/banner-slide.js') }}"></script>
 <script src="{{  asset('assets/js/dropdown-account.js') }}"></script>
 

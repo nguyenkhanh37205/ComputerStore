@@ -15,6 +15,8 @@ use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\VariantsController;
 use App\Http\Controllers\WishlistsController;
 use App\Http\Controllers\Auth\ClientController;
+use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\Auth\CheckoutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,21 +40,64 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 
 // phần người dùng
 Route::get('/', [ClientController::class, 'getAllProducts'])->name('client.home');
-Route::get('/profile', [ClientController::class, 'showProfile'])->name('client.profile');
 // Hiển thị giỏ (nếu bạn dùng indexadmin hoặc showCart -> đặt tên cart.show)
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
-    // Thêm sản phẩm vào giỏ (POST)
-    Route::post('/cart/store', [CartController::class, 'store'])->name('cart.store');
+// Thêm sản phẩm vào giỏ (POST)
+Route::post('/cart/store', [CartController::class, 'store'])->name('cart.store');
 
-    // Cập nhật/xóa (nếu dùng)
-    Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
-    Route::post('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
-    // Cập nhật số lượng sản phẩm trong giỏ hàng (AJAX)
-    Route::post('/cart/update-quantity', [App\Http\Controllers\CartController::class, 'updateQuantity'])
+// Cập nhật/xóa (nếu dùng)
+Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::get('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+// Cập nhật số lượng sản phẩm trong giỏ hàng (AJAX)
+Route::post('/cart/update-quantity', [App\Http\Controllers\CartController::class, 'updateQuantity'])
     ->name('cart.updateQuantity');
 
+//CHỉnh sửa thông tin người dùng
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ClientController::class, 'showProfile'])->name('client.profile');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
+});
 
+// // Đổi email và số điện thoại
+// Route::middleware(['auth'])->group(function () {
+//     // Form đổi email
+//     Route::get('/change-email', [ProfileController::class, 'showChangeEmailForm'])->name('change.email.form');
+//     Route::post('/change-email', [ProfileController::class, 'sendChangeEmailOtp'])->name('change.email.post');
+//     Route::post('/verify-email-otp', [ProfileController::class, 'verifyEmailOtp'])->name('verify.email.otp');
+
+//     // Form đổi số điện thoại
+//     Route::get('/change-phone', [ProfileController::class, 'showChangePhoneForm'])->name('change.phone.form');
+//     Route::post('/change-phone', [ProfileController::class, 'sendChangePhoneOtp'])->name('change.phone.post');
+//     Route::post('/verify-phone-otp', [ProfileController::class, 'verifyPhoneOtp'])->name('verify.phone.otp');
+// });
+
+// Tìm kiếm sản phẩm
+
+Route::get('/search', [ProductsController::class, 'search'])->name('search');
+// Route::get('/search', [ProductsController::class, 'search'])->name('products.search');
+
+// Route::get('/autocomplete', [ProductsController::class, 'autocomplete'])->name('auth.autocomplete');
+
+//
+
+// phần wishlist(danh sách yêu thích)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/wishlist', [WishlistsController::class, 'index'])->name('wishlist.index');
+    Route::post('/wishlist', [WishlistsController::class, 'store'])->name('wishlist.store');
+    Route::delete('/wishlist/{id}', [WishlistsController::class, 'destroy'])->name('wishlist.destroy');
+});
+Route::delete('/wishlist/{id}/ajax', [WishlistsController::class, 'destroyAjax'])
+    ->name('wishlist.destroy.ajax')
+    ->middleware('auth');
+
+//Trang thanh toán
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout/place-order', [CheckoutController::class, 'placeOrder'])->name('checkout.place');
+Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+
+// -------------------------------
 
 // phần admin 
 Route::get('/index', [IndexController::class, 'index']);
