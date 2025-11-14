@@ -5,7 +5,7 @@
         <h1>Chỉnh Sửa Danh Mục: {{ $category->categoryName }}</h1>
         <br>
         <p class="quay"><a href="{{ route('admin.categories.index') }}">Danh sách danh mục</a></p>
-        <link rel="stylesheet" href="{{ asset('css/add.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/admin-css/add.css') }}">
     </div>
 
     <div class="form-container">
@@ -61,7 +61,6 @@
             {{-- NÚT BẤM (Đã loại bỏ Form lồng, sử dụng nút BẤM TRỰC TIẾP) --}}
             <button type="submit" class="btn btn-update">Cập nhật danh mục</button>
             <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Hủy</a>
-            
         </form>
     </div>
 @endsection

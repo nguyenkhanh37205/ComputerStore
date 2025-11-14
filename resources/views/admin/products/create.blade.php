@@ -5,7 +5,7 @@
         <h1>Thêm mới Sản phẩm</h1>
         <br>
         <p class="quay"><a href="{{ route('admin.products.index') }}">Danh sách sản phẩm</a></p>
-        <link rel="stylesheet" href="{{ asset('css/add.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/admin-css/add.css') }}">
     </div>
 
     <div class="form-container">

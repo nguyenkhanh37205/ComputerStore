@@ -4,7 +4,7 @@
 <div class="content-header">
     <h1>Chỉnh Sửa Người Dùng: {{ $user->username }}</h1>
     <br> <p class="quay"><a href="{{ route('admin.users.index') }}">Danh sách người dùng</a></p>
-    <link rel="stylesheet" href="{{ asset('css/add.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/admin-css/add.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" type="image/png" />
 </div>
 

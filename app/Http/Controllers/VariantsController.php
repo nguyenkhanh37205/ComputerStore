@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use App\Models\Products;
-use App\Models\ProductVariant;
+use App\Models\Variant;
 use Illuminate\Http\Request;
 use App\Models\Variants;
 use App\Models\Product; // Cần thiết để chọn sản phẩm gốc
+use App\Models\Category; // 💡 FIX 1: Import Model Category
+use App\Models\Brands;   // 💡 FIX 2: Import Model Brand
 use Illuminate\Support\Facades\Storage;
 
 class VariantsController extends Controller
@@ -14,7 +17,7 @@ class VariantsController extends Controller
     public function index()
     {
         // Lấy biến thể, kèm thông tin sản phẩm gốc
-        $variants = ProductVariant::with('products')->get(); 
+        $variants = Variant::with('product')->get();
         
         return view('admin.variants.index', compact('variants'));
     }
@@ -25,7 +28,13 @@ class VariantsController extends Controller
     {
         // Truyền danh sách sản phẩm để người dùng chọn biến thể cho sản phẩm nào
         $products = Products::all();
-        return view('admin.variants.create', compact('products'));
+        
+        // 💡 FIX 2: Lấy danh sách Categories và truyền vào view
+        $categories = Categories::all(); 
+        $brands = Brands::all();
+
+        // Truyền cả $products và $categories vào view
+        return view('admin.variants.create', compact('products', 'categories', 'brands'));
     }
 
     //---------------------------------------------------------
@@ -40,7 +49,7 @@ class VariantsController extends Controller
             'color' => 'nullable|string|max:50',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', 
         ]);
 
         $data = $request->except('_token', 'image'); 
@@ -54,7 +63,7 @@ class VariantsController extends Controller
         }
         
         // 3. Tạo biến thể mới
-        ProductVariant::create($data);
+        Variant::create($data);
 
         return redirect()->route('admin.variants.index')->with('success', 'Biến thể đã được tạo thành công.');
     }
@@ -63,7 +72,7 @@ class VariantsController extends Controller
 
     public function edit($id)
     {
-        $variant = ProductVariant::findOrFail($id);
+        $variant = Variant::findOrFail($id);
         $products = Products::all();
         
         return view('admin.variants.edit', compact('variant', 'products'));
@@ -81,10 +90,10 @@ class VariantsController extends Controller
             'color' => 'nullable|string|max:50',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', 
         ]);
 
-        $variant = ProductVariant::findOrFail($id);
+        $variant = Variant::findOrFail($id);
         $data = $request->except('_token', '_method', 'image');
         
         // 2. Xử lý Image Upload/Cập nhật
@@ -108,7 +117,7 @@ class VariantsController extends Controller
 
     public function destroy($id)
     {
-        $variant = ProductVariant::findOrFail($id);
+        $variant = Variant::findOrFail($id);
         
         // Xóa ảnh của biến thể trước khi xóa bản ghi
         if ($variant->image) {

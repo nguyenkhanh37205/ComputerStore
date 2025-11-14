@@ -57,7 +57,7 @@
             </tbody>
         </table>
     </div>
-    <script src="{{ asset('js/notifications.js') }}"></script>
+    <script src="{{ asset('assets/js/admin-js/notifications.js') }}"></script>
     <script>
         @if (Session::has('success'))
             // Gọi hàm JS từ file notification.js

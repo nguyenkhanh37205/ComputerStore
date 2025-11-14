@@ -5,7 +5,7 @@
         <h1>Thêm mới Biến thể Sản phẩm</h1>
         <br>
         <p class="quay"><a href="{{ route('admin.variants.index') }}">Danh sách biến thể</a></p>
-        <link rel="stylesheet" href="{{ asset('css/add.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/admin-css/add.css') }}">
     </div>
 
     <div class="form-container">
@@ -73,6 +73,33 @@
                     @endforeach
                 </select>
                 @error('brandId')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="ram">Ram:</label>
+                {{-- Dùng old() để giữ lại giá trị nếu validation thất bại --}}
+                <input type="text" id="ram" name="ram" class="form-control" value="{{ old('ram') }}"
+                    required>
+                @error('ram')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="rom">ROM:</label>
+                {{-- Dùng old() để giữ lại giá trị nếu validation thất bại --}}
+                <input type="text" id="rom" name="rom" class="form-control" value="{{ old('rom') }}"
+                    required>
+                @error('rom')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="color">Màu Sắc:</label>
+                {{-- Dùng old() để giữ lại giá trị nếu validation thất bại --}}
+                <input type="text" id="color" name="color" class="form-control" value="{{ old('color') }}"
+                    required>
+                @error('color')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>

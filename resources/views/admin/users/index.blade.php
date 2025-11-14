@@ -4,7 +4,7 @@
     <div class="content-header">
         <h1>Danh sách người dùng</h1>
         <a href="{{ route('admin.users.create') }}" class="add-btn">Thêm mới</a>
-        <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
+        {{-- <link rel="stylesheet" href="{{ asset('assets/css/admin-css/admin.css') }}"> --}}
         <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" type="image/png" />
     </div>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -65,7 +65,7 @@
             </tbody>
         </table>
     </div>
-    <script src="{{ asset('js/notifications.js') }}"></script>
+    <script src="{{ asset('assets/js/admin-js/notifications.js') }}"></script>
     <script>
         @if (Session::has('success'))
             // Gọi hàm JS từ file notification.js

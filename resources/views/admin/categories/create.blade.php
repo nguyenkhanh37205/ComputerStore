@@ -4,7 +4,7 @@
 <div class="content-header">
     <h1>Thêm Mới Danh Mục</h1>
     <br> <p class="quay"><a href="{{ route('admin.categories.index') }}">Danh sách danh mục</a></p>
-    <link rel="stylesheet" href="{{ asset('css/add.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/admin-css/add.css') }}">
 </div>
 
 <div class="form-container">

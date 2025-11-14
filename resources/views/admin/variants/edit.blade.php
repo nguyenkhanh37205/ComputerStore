@@ -5,7 +5,7 @@
     {{-- Hiển thị tên sản phẩm đang chỉnh sửa --}}
     <h1>Chỉnh sửa Sản phẩm: {{ $product->productName }}</h1>
     <a class="quay" href="{{ route('admin.products.index') }}">Quay lại danh sách</a>
-    <link rel="stylesheet" href="{{ asset('css/add.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/admin-css/add.css') }}">
 </div>
 
 <div class="form-container">

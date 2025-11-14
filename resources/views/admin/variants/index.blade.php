@@ -5,7 +5,7 @@
     <h1>Danh sách Biến thể Sản phẩm</h1>
     {{-- Liên kết đến trang thêm mới biến thể --}}
     <a href="{{ route('admin.variants.create') }}" class="add-btn">Thêm mới</a>
-    <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/admin-css/admin.css') }}">
 </div>
 
 {{-- Hiển thị thông báo thành công hoặc lỗi (nếu có) --}}

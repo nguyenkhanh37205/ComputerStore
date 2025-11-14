@@ -5,7 +5,7 @@
         <h1>Chỉnh Sửa Thương Hiệu: {{ $brand->brandName }}</h1>
         <br>
         <p class="quay"><a href="{{ route('admin.brands.index') }}">Danh sách thương hiệu</a></p>
-        <link rel="stylesheet" href="{{ asset('css/add.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/admin-css/add.css') }}">
     </div>
 
     <div class="form-container">
@@ -51,8 +51,7 @@
             </div>
 
                 <button type="submit" class="btn btn-update">Cập nhật thương hiệu</button>
-                <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Hủy</a>
-ư
+                <a href="{{ route('admin.brands.index') }}" class="btn btn-secondary">Hủy</a>
         </form>
     </div>
 @endsection

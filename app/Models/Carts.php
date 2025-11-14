@@ -28,7 +28,7 @@ class Carts extends Model
     // Cart thuộc 1 biến thể sản phẩm
     public function variant()
     {
-        return $this->belongsTo(ProductVariant::class, 'variantId', 'variantId');
+        return $this->belongsTo(Variant::class, 'variantId', 'variantId');
     }
 
     // Giúp lấy trực tiếp tên sản phẩm
@@ -36,7 +36,7 @@ class Carts extends Model
     {
         return $this->hasOneThrough(
             Products::class,
-            ProductVariant::class,
+            Variant::class,
             'variantId',
             'productId',
             'variantId',
