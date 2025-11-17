@@ -11,11 +11,6 @@
 
 </head>
 
-<style>
-
-   
-</style>
-
 <body>
 
     @include('client.layout.header')
@@ -35,11 +30,9 @@
 
             {{-- 1. Cột Hình ảnh --}}
             <div class="product-images">
-                <div class="main-image">
-                    {{-- Ảnh chính --}}
-                    <img src="{{ asset($product->image ?? 'assets/images/placeholder.jpg') }}"
-                        alt="{{ $product->productName }}">
-                </div>
+                <img id="productImage"
+                    src="{{ asset($variant->image ?? $product->image ?? 'assets/images/placeholder.jpg') }}"
+                    alt="{{ $product->productName }}">
 
                 {{-- Ảnh phụ (Thumbnail) --}}
                 <div class="thumbnail-images">
@@ -52,8 +45,8 @@
                 <h1 class="product-name">{{ $product->productName ?? 'Tên sản phẩm' }}</h1>
 
                 <div class="product-meta">
-                    <p>Thương hiệu: **{{ $product->brands->brandName ?? 'Chưa rõ' }}**</p>
-                    <p>Mã sản phẩm: **#{{ $product->sku ?? $product->productId }}**</p>
+                    <p>Thương hiệu: {{ $product->brands->brandName ?? 'Chưa rõ' }}</p>
+                    <p>Mã sản phẩm: {{ $product->sku ?? $product->productId }}</p>
                 </div>
 
                 <div class="product-price-box">
@@ -62,7 +55,10 @@
                         <span
                             class="discount-badge">-{{ round((($product->old_price - $product->price) / $product->old_price) * 100) }}%</span>
                     @endif
-                    <span class="current-price">{{ number_format($product->price ?? 0) }} VNĐ</span>
+                    <span class="current-price" id="productPrice">
+                        {{ number_format($variant->price ?? $product->price ?? 0) }} VNĐ
+                    </span>
+
                 </div>
 
                 <div class="product-short-description">
@@ -72,12 +68,42 @@
                     </ul>
                 </div>
 
+                {{-- ==== CHỌN MÀU ==== --}}
+                <div class="variant-group mt-3">
+                    <h3>Chọn màu:</h3>
+                    <div class="variant-options" id="colorOptions">
+                        @php $colors = $product->variants->groupBy('color'); @endphp
+                        @foreach($colors as $color => $items)
+                            <button type="button" class="variant-btn color-btn" data-color="{{ $color }}">
+                                {{ $color }}
+                            </button>
+                        @endforeach
+                    </div>
+                </div>
+
+                {{-- ==== CHỌN ROM ==== --}}
+                <div class="variant-group mt-3">
+                    <h3>Chọn dung lượng:</h3>
+                    <div class="variant-options" id="romOptions">
+                        @php $roms = $product->variants->groupBy('rom'); @endphp
+                        @foreach($roms as $rom => $items)
+                            <button type="button" class="variant-btn rom-btn" data-rom="{{ $rom }}">
+                                {{ $rom }} GB
+                            </button>
+                        @endforeach
+                    </div>
+                </div>
+
+                {{-- ==== INPUT ẨN LẤY variantId ==== --}}
+                <input type="hidden" id="selectedVariantId" name="variant_id" value="{{ $variant->variantId ?? '' }}">
+
+
                 <div class="product-status">
                     <p>Tình trạng:
                         <span class="{{ ($variant->stock ?? 0) > 0 ? 'status-in-stock' : 'status-out-stock' }}">
                             {{ ($variant->stock ?? 0) > 0 ? 'CÒN HÀNG' : 'HẾT HÀNG' }}
                         </span>
-                        ({{ $variant->stock ?? 0 }} sản phẩm)
+                        (<span id="productStock">{{ $variant->stock ?? 0 }}</span> sản phẩm)
                     </p>
                 </div>
 
@@ -85,14 +111,14 @@
                 <form action="{{ route('cart.store', ['id' => $product->productId ?? 0]) }}" method="POST"
                     class="add-to-cart-form">
                     @csrf
-                    <input type="hidden" name="variant_id" value="{{ $variant->variantId ?? '' }}"> 
-                    
+                    <input type="hidden" name="variant_id" value="{{ $variant->variantId ?? '' }}">
+
                     <div class="quantity-control">
                         <button type="button" class="qty-btn" onclick="updateQty(-1)">-</button>
-                        
+
                         <input type="number" id="quantity" name="quantity" value="1" min="1"
                             max="{{ $variant->stock ?? 10 }}">
-                            
+
                         <button type="button" class="qty-btn" onclick="updateQty(1)">+</button>
                     </div>
 
@@ -119,7 +145,7 @@
 
             <div class="tab-content-container">
                 <div class="tab-pane active" id="description">
-                    {!! $product->description ?? '<p>Sản phẩm này chưa có mô tả chi tiết.</p>' !!}
+                    {!! $product->productDescription ?? '<p>Sản phẩm này chưa có mô tả chi tiết.</p>' !!}
                 </div>
                 <div class="tab-pane" id="specifications">
                     {!! $product->specifications ?? '<p>Thông số kỹ thuật đang được cập nhật...</p>' !!}
@@ -153,34 +179,12 @@
     @include('client.layout.footer')
 
     <script>
-        // Logic điều chỉnh số lượng (Không cần sửa nếu bạn đã đặt max đúng trong HTML)
-        function updateQty(change) {
-            const qtyInput = document.getElementById('quantity');
-            let currentValue = parseInt(qtyInput.value);
-            let newValue = currentValue + change;
-            let max = parseInt(qtyInput.max); // Lấy giá trị max đã đặt bằng $variant->stock
-
-            if (newValue >= 1 && newValue <= max) {
-                qtyInput.value = newValue;
-            }
-        }
-
-        // Logic chuyển Tab Mô tả/Thông số
-        document.querySelectorAll('.tab-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                // Xóa active khỏi tất cả các nút và pane
-                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-                document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
-
-                // Thêm active vào nút được click
-                this.classList.add('active');
-
-                // Hiển thị tab content tương ứng
-                const targetId = this.getAttribute('data-target');
-                document.querySelector(targetId).classList.add('active');
-            });
-        });
+        const variants = @json($product->variants);
     </script>
+
+
+    <script src="{{ asset('assets/js/productdetail.js') }}"></script>
+
 </body>
 
 </html>

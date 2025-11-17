@@ -314,6 +314,25 @@
      color: #dc3545;
  }
 
+ .variant-options {
+     display: flex;
+     gap: 10px;
+     flex-wrap: wrap;
+ }
+
+ .variant-btn {
+     padding: 8px 14px;
+     border: 1px solid #ccc;
+     border-radius: 6px;
+     background: #fff;
+     cursor: pointer;
+ }
+
+ .variant-btn.active {
+     border-color: #007bff;
+     background: #eaf3ff;
+ }
+
 
  /* Responsive */
  @media (max-width: 992px) {

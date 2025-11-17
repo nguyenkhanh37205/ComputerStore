@@ -2,14 +2,17 @@
     <div class="banner-slider">
         <div class="slides">
             <div class="slide active">
-                <img src="{{ asset('assets/images/slide/banner-ip15.jpg') }}" alt="Banner 1">
+                <img src="{{ asset('assets/images/slide/slide.jpg') }}" alt="Banner 1">
             </div>
             <div class="slide">
-                <img src="{{ asset('assets/images/slide/banner-oppo.jpg') }}" alt="Banner 2">
+                <img src="{{ asset('assets/images/slide/slide2.jpg') }}" alt="Banner 2">
             </div>
             <div class="slide">
-                <img src="{{ asset('assets/images/slide/banner-samsung.jpg') }}" alt="Banner 3">
+                <img src="{{ asset('assets/images/slide/slide3.jpg') }}" alt="Banner 3">
             </div>
+            <!-- <div class="slide">
+                <img src="{{ asset('assets/images/slide/slide4.jpg') }}" alt="Banner 4">
+            </div> -->
         </div>
 
         <button class="prev">&#10094;</button>
