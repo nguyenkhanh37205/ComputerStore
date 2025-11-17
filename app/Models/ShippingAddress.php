@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ShippingAddress extends Model
+class ShippingAddress extends Model 
 {
     use HasFactory;
 
-    protected $table = 'shippingAddresses'; // Tên bảng đúng trong CSDL
-    protected $primaryKey = 'addressId';
-    public $timestamps = false;
+    // Tên bảng: shippingAddresses
+    protected $table = 'shippingAddresses'; 
+    protected $primaryKey = 'addressId'; 
+    public $timestamps = false; // Bảng này không có created_at/updated_at
 
+    // CÁC CỘT ĐƯỢC PHÉP LƯU (QUAN TRỌNG KHI TẠO ĐỊA CHỈ MỚI)
     protected $fillable = [
         'userId',
         'recipientName',

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\Orders;
+use App\Models\Products;
+use App\Models\Wishlists;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -11,9 +14,39 @@ use Illuminate\Validation\ValidationException;
 
 class ProfileController extends Controller
 {
+
+    // public function showProfile(){
+    //     return view('auth.profile');
+    // }
+    
+    // PHƯƠNG THỨC MỚI: HIỂN THỊ TRANG PROFILE VÀ ĐƠN HÀNG
+    public function showProfile()
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        $userId = Auth::id();
+
+        // Lấy danh sách đơn hàng của user
+        $orders = Orders::where('userId', $userId)
+            ->with('items.variant.product') 
+            ->orderByDesc('orderId') // hoặc created_at tùy bạn
+            ->get();
+
+        // Lấy sản phẩm yêu thích
+        $favorites = Wishlists::where('userId', $userId)
+            ->with('products')
+            ->get();
+
+        // TRẢ VỀ ĐÚNG VIEW BẠN ĐANG XÀI
+        return view('auth.profile', compact('orders', 'favorites'));
+    }
+    // CẬP NHẬT PHƯƠNG THỨC CẬP NHẬT THÔNG TIN CÁ NHÂN
+
     public function update(Request $request)
     {
-        // dd($request->all());
+        // ... (Logic cập nhật thông tin giữ nguyên)
         $user = Auth::user();
 
         // Validate dữ liệu
@@ -45,8 +78,11 @@ class ProfileController extends Controller
 
         return redirect()->back()->with('success', 'Cập nhật thông tin thành công!');
     }
+    // ... (Các phương thức khác giữ nguyên)
+
     public function changePassword(Request $request)
     {
+        // ... (Logic đổi mật khẩu giữ nguyên)
         $user = Auth::user();
 
         // Xác thực dữ liệu nhập vào
@@ -151,6 +187,4 @@ class ProfileController extends Controller
 
         return back()->with('error', 'Mã OTP không đúng!');
     }
-
-
 }

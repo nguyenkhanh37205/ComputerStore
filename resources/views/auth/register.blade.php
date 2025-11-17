@@ -31,7 +31,7 @@
                     <input type="text" id="phone" name="phone" class="form-control" required>
                 </div>
 
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <label class="form-label">Địa chỉ:</label>
                     <div class="address-group">
                         <select id="province" class="form-select">
@@ -44,7 +44,7 @@
                             <option value="">Chọn phường</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="mb-3">
                     <label for="password" class="form-label">Mật khẩu:</label>

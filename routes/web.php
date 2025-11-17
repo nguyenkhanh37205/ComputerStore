@@ -55,7 +55,7 @@ Route::post('/cart/update-quantity', [App\Http\Controllers\CartController::class
 
 //CHỉnh sửa thông tin người dùng
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [ClientController::class, 'showProfile'])->name('client.profile');
+    Route::get('/profile', [ProfileController::class, 'showProfile'])->name('client.profile');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
 });
@@ -73,9 +73,16 @@ Route::middleware(['auth'])->group(function () {
 //     Route::post('/verify-phone-otp', [ProfileController::class, 'verifyPhoneOtp'])->name('verify.phone.otp');
 // });
 
+//chi tiết sản phẩm
+// Route::get('/product/{productId}', [ProductsController::class, 'showProductDetail'])->name('product.detail');
+Route::get('/category/{id}', [ProductsController::class, 'showProducts'])->name('category.show');
+
 // Tìm kiếm sản phẩm
 
 Route::get('/search', [ProductsController::class, 'search'])->name('search');
+
+
+Route::get('/product/{id}', [ProductsController::class, 'showProductDetail'])->name('product.show');
 // Route::get('/search', [ProductsController::class, 'search'])->name('products.search');
 
 // Route::get('/autocomplete', [ProductsController::class, 'autocomplete'])->name('auth.autocomplete');
@@ -142,7 +149,7 @@ Route::prefix('admin')->group(function () {
     });
     // phần quản lý giỏ hàng
     Route::prefix('/carts')->group(function () {
-        Route::get('/', [CartController::class, 'index'])->name('admin.cart.index');
+        Route::get('/', [CartController::class, 'index'])->name('admin.cart.indexAdmin');
         Route::post('/store', [CartController::class, 'store'])->name('admin.cart.store');
         Route::post('/{id}/update', [CartController::class, 'update'])->name('admin.cart.update');
         Route::delete('/{id}/delete', [CartController::class, 'destroy'])->name('admin.cart.destroy');

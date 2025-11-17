@@ -42,6 +42,7 @@
                     <thead>
                         <tr>
                             <th>Mã đơn hàng</th>
+                            <th>Sản phẩm & Biến thể</th>
                             <th>Ngày đặt</th>
                             <th>Tổng tiền</th>
                             <th>Trạng thái</th>
@@ -49,20 +50,60 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($orders ?? [] as $order)
+                        @forelse($orders as $order)
                             <tr>
-                                <td>{{ $order->order_code }}</td>
-                                <td>{{ $order->created_at }}</td>
-                                <td>{{ number_format($order->total ?? 0, 0, ',', '.') }}đ</td>
-                                <td><span class="order-status status-{{ $order->status }}">{{ $order->status_text }}</span>
+                                <td>{{ $order->orderId }}</td>
+
+                                <td>
+                                    @if($order->items->isNotEmpty())
+                                        @php
+                                            $firstItem = $order->items->first();
+
+                                            // Truy cập qua chuỗi quan hệ: items -> variant -> product
+                                            $productName = $firstItem->variant->product->productName ?? 'Sản phẩm đã xóa';
+                                            $variant = $firstItem->variant;
+
+                                            // Tạo chuỗi biến thể (Variant: RAM, ROM, Color)
+                                            $variantInfo = [];
+                                            if ($variant->ram)
+                                                $variantInfo[] = 'RAM: ' . $variant->ram;
+                                            if ($variant->rom)
+                                                $variantInfo[] = 'ROM: ' . $variant->rom;
+                                            if ($variant->color)
+                                                $variantInfo[] = 'Màu: ' . $variant->color;
+
+                                            $otherItemsCount = $order->items->count() - 1;
+                                        @endphp
+
+                                        <strong>{{ $productName }}</strong>
+
+                                        @if(!empty($variantInfo))
+                                            <small class="block text-gray-500">({{ implode(' | ', $variantInfo) }})</small>
+                                        @endif
+
+                                        @if ($otherItemsCount > 0)
+                                            <small class="block text-gray-400 mt-1">
+                                                + {{ $otherItemsCount }} sản phẩm khác
+                                            </small>
+                                        @endif
+                                    @else
+                                        Không có mặt hàng
+                                    @endif
+                                </td>
+
+                                <td>{{ $order->createdAt }}</td>
+                                <td>{{ number_format($order->total, 0, ',', '.') }}đ</td>
+                                <td><span
+                                        class="order-status status-{{ strtolower($order->status) }}">{{ $order->status_text }}</span>
                                 </td>
                                 <td><button class="btn btn-outline">Xem</button></td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5">Chưa có đơn hàng nào</td>
+                                <td colspan="6">Chưa có đơn hàng nào</td>
                             </tr>
                         @endforelse
+
                     </tbody>
                 </table>
             </div>
@@ -115,33 +156,32 @@
                                 <input type="text" name="phone" value="{{ Auth::user()->phone }}">
                             </div>
 
-                            <!-- THAY THẾ BẰNG ĐÂY -->
-                            <div class="form-group">
-                                <label>Tỉnh/Thành phố</label>
-                                <select id="province" name="province">
-                                    <option value="">-- Chọn Tỉnh/Thành phố --</option>
-                                </select>
+                            <div class="address-row">
+                                <div class="form-group">
+                                    <label>Tỉnh/Thành phố</label>
+                                    <select id="province" name="province">
+                                        <option value="">-- Chọn Tỉnh/Thành phố --</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Quận/Huyện</label>
+                                    <select id="district" name="district" disabled>
+                                        <option value="">-- Chọn Quận/Huyện --</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Phường/Xã</label>
+                                    <select id="ward" name="ward" disabled>
+                                        <option value="">-- Chọn Phường/Xã --</option>
+                                    </select>
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label>Quận/Huyện</label>
-                                <select id="district" name="district" disabled>
-                                    <option value="">-- Chọn Quận/Huyện --</option>
-                                </select>
-                            </div>
+                            <!-- Input hidden để gửi địa chỉ -->
+                            <input type="hidden" id="address" name="address">
 
-                            <div class="form-group">
-                                <label>Phường/Xã</label>
-                                <select id="ward" name="ward" disabled>
-                                    <option value="">-- Chọn Phường/Xã --</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Địa chỉ đầy đủ</label>
-                                <input type="text" id="fullAddress" name="address" value="{{ Auth::user()->address }}"
-                                    placeholder="Địa chỉ đầy đủ sẽ hiển thị tại đây">
-                            </div>
 
                             <div class="form-group">
                                 <label>Ảnh đại diện</label>

@@ -1,302 +1,270 @@
-    /* ==== RESET ==== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", sans-serif;
-    }
+/* ==== RESET ==== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
 
-    body {
-      background: #f8f9fb;
-      color: #333;
-    }
+body {
+  background: #f8f9fb;
+  color: #333;
+}
 
-    /* ==== DASHBOARD ==== */
-    .dashboard-container {
-      max-width: 1100px;
-      margin: 50px auto;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
-      overflow: hidden;
-    }
+/* ==== DASHBOARD ==== */
+.dashboard-container {
+  max-width: 1100px;
+  margin: 50px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
 
-    .dashboard-header {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      background: linear-gradient(135deg, #0d6efd, #0b5ed7);
-      color: #fff;
-      padding: 30px 40px;
-    }
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+  color: #fff;
+  padding: 30px 40px;
+}
 
-    .user-avatar {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      border: 3px solid #fff;
-      object-fit: cover;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-    }
+.user-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  object-fit: cover;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
 
-    /* ==== NỘI DUNG ==== */
-    .tab-content {
-      padding: 30px;
-    }
+/* ==== NỘI DUNG CHUNG ==== */
+.tab-content {
+  padding: 30px;
+}
 
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 15px;
-    }
+.tab-content>.btn-primary {
+  margin-top: 25px;
+  margin-bottom: 30px;
+}
 
-    .info-box {
-      background: #f5f7ff;
-      padding: 15px;
-      border-radius: 8px;
-      border: 1px solid #e0e0e0;
-    }
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+}
 
-    .btn {
-      padding: 10px 18px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: 0.3s;
-    }
+.info-box {
+  background: #f5f7ff;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
 
-    .btn-primary {
-      background: #0d6efd;
-      color: #fff;
-    }
+/* ==== TEXT UTILITIES (Bổ sung) ==== */
+.text-primary {
+  color: #0d6efd !important;
+  margin-bottom: 15px;
+}
 
-    .btn-primary:hover {
-      background: #0b5ed7;
-    }
+.text-muted {
+  color: #6c757d !important;
+  font-style: italic;
+}
 
-    .btn-outline {
-      background: transparent;
-      border: 1px solid #0d6efd;
-      color: #0d6efd;
-    }
+/* ==== BUTTONS ==== */
+.btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
 
-    .btn-outline:hover {
-      background: #0d6efd;
-      color: #fff;
-    }
+.btn-primary {
+  background: #0d6efd;
+  color: #fff;
+}
 
-    .btn-danger {
-      background: #dc3545;
-      color: #fff;
-    }
+.btn-primary:hover {
+  background: #0b5ed7;
+}
 
-    .btn-danger:hover {
-      background: #b02a37;
-    }
+.btn-outline {
+  background: transparent;
+  border: 1px solid #0d6efd;
+  color: #0d6efd;
+}
 
-    /* ==== TAB ==== */
-    .tab-nav {
-      display: flex;
-      border-bottom: 2px solid #eee;
-      margin-top: 20px;
-    }
+.btn-outline:hover {
+  background: #0d6efd;
+  color: #fff;
+}
 
-    .tab-nav button {
-      flex: 1;
-      padding: 12px 0;
-      border: none;
-      background: none;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+.btn-danger {
+  background: #dc3545;
+  color: #fff;
+}
 
-    .tab-nav button.active {
-      color: #0d6efd;
-      border-bottom: 3px solid #0d6efd;
-    }
+.btn-danger:hover {
+  background: #b02a37;
+}
 
-    /* ==== BẢNG ==== */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
+/* ==== TAB CHÍNH ==== */
+.tab-nav {
+  display: flex;
+  border-bottom: 2px solid #eee;
+  margin-top: 20px;
+}
 
-    th,
-    td {
-      padding: 12px 10px;
-      text-align: center;
-      border-bottom: 1px solid #eee;
-    }
+.tab-nav button {
+  flex: 1;
+  padding: 12px 0;
+  border: none;
+  background: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-    th {
-      background: #f0f4ff;
-      color: #333;
-    }
+.tab-nav button.active {
+  color: #0d6efd;
+  border-bottom: 3px solid #0d6efd;
+}
 
-    tr:hover {
-      background: #f9fbff;
-    }
+/* ==== BẢNG ĐƠN HÀNG ==== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
 
-    .order-status {
-      padding: 6px 12px;
-      border-radius: 30px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #fff;
-      display: inline-block;
-    }
+th,
+td {
+  padding: 12px 10px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
 
-    .status-pending {
-      background: #ffc107;
-    }
+th {
+  background: #f0f4ff;
+  color: #333;
+}
 
-    .status-confirmed {
-      background: #28a745;
-    }
+tr:hover {
+  background: #f9fbff;
+}
 
-    .status-shipping {
-      background: #17a2b8;
-    }
+.order-status {
+  padding: 6px 12px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  display: inline-block;
+}
 
-    .status-delivered {
-      background: #198754;
-    }
+.status-pending {
+  background: #ffc107;
+  /* Vàng */
+  color: #333;
+  /* Chữ màu đen/xám cho dễ đọc */
+}
 
-    /* ==== PRODUCT ==== */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-    }
+.status-confirmed {
+  background: #28a745;
+}
 
-    .product-card {
-      border: 1px solid #eee;
-      border-radius: 10px;
-      padding: 15px;
-      text-align: center;
-      transition: 0.3s;
-      background: #fff;
-    }
+.status-shipping {
+  background: #17a2b8;
+}
 
-    .product-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    }
+.status-delivered {
+  background: #198754;
+}
 
-    .product-card img {
-      width: 100%;
-      height: 170px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
+.status-cancelled,
+.status-failed {
+  background: #dc3545;
+  /* Đỏ */
+}
 
-    /* ==== MODAL ==== */
-    .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-    }
+/* ==== SẢN PHẨM YÊU THÍCH ==== */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
 
-    .modal.active {
-      display: flex;
-    }
+.product-card {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  transition: 0.3s;
+  background: #fff;
+}
 
-    .modal-content {
-      background: #fff;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 700px;
-      padding: 20px 30px;
-      position: relative;
-    }
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
 
-    .modal-header {
-      font-weight: 600;
-      font-size: 18px;
-      color: #0d6efd;
-      margin-bottom: 15px;
-    }
+.product-card img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 8px;
+}
 
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: none;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-    }
+/* ==== MODAL (CHỈNH SỬA) ==== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
 
-    .form-group {
-      margin-bottom: 15px;
-    }
+.modal.active {
+  display: flex;
+}
 
-    .form-group label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    .modal-tabs {
-      display: flex;
-      border-bottom: 2px solid #eee;
-      margin-bottom: 15px;
-    }
-
-    .modal-tabs button {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      background: none;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .modal-tabs button.active {
-      color: #0d6efd;
-      border-bottom: 3px solid #0d6efd;
-    }
-
-    .modal-body {
-      padding-top: 10px;
-    }
-    /* Modal content */
 .modal-content {
   background: #fff;
   border-radius: 10px;
   width: 90%;
-  max-width: 700px;
+  max-width: 650px;
   padding: 20px 30px;
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Thêm khoảng cách giữa các phần trong modal */
+  gap: 20px;
 }
 
-/* Modal header */
 .modal-header {
   font-weight: 600;
   font-size: 20px;
   color: #0d6efd;
   margin-bottom: 10px;
   text-align: center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 /* Tabs trong modal */
@@ -306,6 +274,7 @@
   margin-bottom: 15px;
   gap: 10px;
 }
+
 .modal-tabs button {
   flex: 1;
   padding: 10px 0;
@@ -315,42 +284,71 @@
   font-weight: 600;
   transition: 0.3s;
 }
+
 .modal-tabs button.active {
   color: #0d6efd;
   border-bottom: 3px solid #0d6efd;
 }
 
-/* Form bên trong modal */
+/* Nội dung Form */
+.modal-body {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
 .modal-body form {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Khoảng cách giữa các input */
+  gap: 15px;
+}
+
+.form-group {
+  margin-bottom: 0;
 }
 
 .form-group label {
+  display: block;
   font-weight: 600;
   margin-bottom: 6px;
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  font-size: 15px;
 }
 
-/* Nút submit */
-.modal-body button {
-  align-self: flex-end; /* Đẩy nút ra bên phải */
+/* NÚT SUBMIT TRONG MODAL */
+.modal-body button[type="submit"] {
+  align-self: flex-end;
   padding: 10px 20px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
 }
 
-/* Khoảng cách giữa các modal-body (info / password) */
-.modal-body {
+
+/* === ĐỊNH DẠNG ĐỊA CHỈ TRÊN 1 HÀNG === */
+.address-row {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  gap: 15px;
+  margin-bottom: 0;
+}
+
+.address-row .form-group {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+/* Điều chỉnh trên màn hình nhỏ (Mobile) */
+@media (max-width: 600px) {
+  .address-row {
+    flex-direction: column;
+  }
 }

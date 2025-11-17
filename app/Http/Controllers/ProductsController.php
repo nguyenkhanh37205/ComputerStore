@@ -189,6 +189,33 @@ class ProductsController extends Controller
         ]);
     }
 
+    // Trong ProductsController.php
+
+    public function showProductDetail($id)
+    {
+        // Lấy sản phẩm hiện tại, bao gồm brand, category, VÀ variants
+        // Giả sử mối quan hệ biến thể trong Model Products là 'variants'
+        $product = Products::with(['brands', 'categories', 'variants'])->findOrFail($id);
+
+        // LẤY BIẾN THỂ MẶC ĐỊNH ĐỂ HIỂN THỊ TỒN KHO BAN ĐẦU
+        $variant = $product->variants->first(); // Đổi tên biến để khớp với View
+
+        // Xử lý trường hợp không có biến thể nào được tìm thấy
+        if (!$variant) {
+            // Tạo một đối tượng giả (dummy object) để tránh lỗi 'Undefined variable $variant' trong view
+            $variant = (object)['stock' => 0, 'price' => $product->price ?? 0];
+        }
+
+        // Lấy các sản phẩm liên quan (Ví dụ: cùng danh mục)
+        $relatedProducts = Products::where('categoryId', $product->categoryId)
+            ->where('productId', '!=', $id) // Loại trừ sản phẩm hiện tại
+            ->limit(6)
+            ->get();
+
+        // TRUYỀN BIẾN $variant sang view
+        // Vì tên biến đã là $variant, View của bạn sẽ nhận dữ liệu tồn kho đúng
+        return view('auth.productdetail', compact('product', 'relatedProducts', 'variant'));
+    }
 
 
 }

@@ -46,24 +46,37 @@
     gap: 18px;
     padding: 10px;
     scrollbar-width: none;
+    /* QUAN TRỌNG: Đảm bảo các card kéo dài cùng chiều cao */
+    align-items: stretch;
 }
 
 .product-list::-webkit-scrollbar {
     display: none;
 }
 
+/* ĐỊNH NGHĨA KÍCH THƯỚC CARD CỐ ĐỊNH */
 .product-card {
+    /* Kích thước cố định */
+    width: 220px;
     min-width: 220px;
+    height: 380px; /* CHIỀU CAO CỐ ĐỊNH (có thể điều chỉnh) */
+    
     border: 1px solid #eee;
     border-radius: 8px;
     padding: 12px;
     background-color: #fff;
+    
+    /* Bố cục Flexbox quan trọng để căn chỉnh nội dung và nút Mua hàng */
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    
     transition: all 0.25s ease;
     position: relative;
+    
+    /* Quay lại padding-bottom mặc định vì nút đã dùng position: absolute */
+    padding-bottom: 12px; 
 }
 
 .product-card:hover {
@@ -85,33 +98,40 @@
     padding: 4px 6px;
     border-radius: 3px;
     line-height: 1.2;
+    display: block;
+    white-space: nowrap;
+    text-align: center;
 }
 
-/* Nút yêu thích */
+.save-badge b {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 1px;
+}
+
 .favorite-btn {
-    background: none;       /* Nền trong suốt */
-    border: none;           /* Bỏ viền mặc định */
+    background: none;
+    border: none;
     cursor: pointer;
-    font-size: 20px;        /* Kích thước icon */
-    color: #777;            /* Màu mặc định */
+    font-size: 20px;
+    color: #777;
     transition: color 0.3s ease, transform 0.2s ease;
     padding: 5px;
 }
 
 .favorite-btn:hover {
-    color: #e74c3c;         /* Màu đỏ khi hover */
-    transform: scale(1.2);  /* Phóng to nhẹ khi hover */
+    color: #e74c3c;
+    transform: scale(1.2);
 }
 
 .favorite-btn:focus {
-    outline: none;           /* Bỏ viền khi nhấn */
+    outline: none;
 }
 
-/* Nếu muốn khi nhấn toggle trái tim đầy */
 .favorite-btn.active i {
     color: #e74c3c;
 }
-
 
 .product-img {
     width: 100%;
@@ -137,6 +157,7 @@
     text-transform: uppercase;
 }
 
+/* GIỚI HẠN SỐ DÒNG CHO TÊN SẢN PHẨM */
 .product-name {
     font-size: 14px;
     font-weight: 600;
@@ -145,6 +166,24 @@
     height: 38px;
     overflow: hidden;
     margin-bottom: 8px;
+    
+    /* Cắt text bằng dấu "..." */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Giới hạn 2 dòng */
+    -webkit-box-orient: vertical;
+}
+
+/* GIỚI HẠN 1 DÒNG CHO THÔNG TIN VARIANT */
+.variant-info {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 8px;
+    line-height: 1.3;
+    min-height: 17px;
+    height: 17px; /* Cố định chiều cao */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .price-info {
@@ -190,34 +229,38 @@
     color: #fff;
 }
 
-/* Nút Thêm giỏ hàng */
+/* VỊ TRÍ NÚT THÊM GIỎ HÀNG */
+.product-card form[method="POST"] {
+    display: block;
+    margin-top: auto; /* Đẩy xuống đáy */
+    position: absolute; /* Đặt vị trí cố định */
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    width: calc(100% - 24px);
+}
+
 .contact-link {
-    display: inline-block;
-    padding: 12px 25px;
-    background-color: #007bff; /* màu xanh nút */
-    color: #fff; /* chữ trắng */
-    font-size: 16px;
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 14px;
     font-weight: 600;
-    text-align: center;
-    border-radius: 8px;
-    border: none;
+    background-color: #d70018;
+    border: 1px solid #d70018;
+    color: #fff;
+    border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
+    display: block; /* Chắc chắn nó là block để chiếm 100% width */
+    text-align: center;
+    transform: none;
+    box-shadow: none;
 }
 
 .contact-link:hover {
-    background-color: #0056b3; /* màu nút khi hover */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    background-color: #b10014;
 }
-
-/* Tùy chọn nếu muốn form nằm inline và đẹp hơn */
-form[method="POST"] {
-    display: inline-block;
-    margin-top: 10px; /* khoảng cách trên dưới */
-}
-
 
 .slide-btn {
     position: absolute;

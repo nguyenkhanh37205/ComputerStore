@@ -1,0 +1,254 @@
+.page-title {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+/* Bố cục 2 cột (Flexbox) */
+.checkout-layout {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start; /* Giữ các cột nằm trên cùng */
+}
+
+.info-section {
+    flex: 3; /* Khoảng 70% */
+    min-width: 60%;
+}
+
+.summary-section {
+    flex: 2; /* Khoảng 30% */
+    min-width: 30%;
+}
+
+/* Card Box (Thẻ chứa nội dung) */
+.card-box {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.card-box h5 {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Quan trọng để padding không làm tăng chiều rộng */
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* ... (Giữ nguyên các styles cũ) ... */
+
+/* Bố cục form ba cột */
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px; /* Thêm khoảng cách dưới cho form-row */
+}
+
+.form-row .half-width {
+    flex: 1; /* 2 cột */
+}
+
+/* THÊM MỚI: Định nghĩa 3 cột */
+.form-row .third-width {
+    flex: 1; /* Chia đều 3 cột */
+}
+
+/* ... (Giữ nguyên Media Queries) ... */
+@media (max-width: 768px) {
+    /* ... (code cũ) ... */
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+/* Alerts */
+.alert {
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 0.9em;
+}
+
+.alert-info {
+    background-color: var(--alert-info);
+    border: 1px solid #a0c3ff;
+    color: #084298;
+}
+
+.alert-warning {
+    background-color: var(--alert-warning);
+    border: 1px solid #ffeeba;
+    color: #997404;
+}
+
+/* Checkbox (Form Check) */
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.form-check-input {
+    width: 16px;
+    height: 16px;
+}
+
+/* Button */
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--fpt-dark-blue);
+    color: var(--fpt-light-gray);
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+}
+
+.btn-full {
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* Summary Table */
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.summary-table tr {
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.summary-table tr:last-child {
+    border-bottom: none;
+}
+
+.summary-table td {
+    padding: 10px 0;
+    vertical-align: top;
+}
+
+.summary-table .item-image {
+    width: 60px;
+    padding-right: 10px;
+}
+
+.summary-table .item-price {
+    text-align: right;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.summary-table .item-details strong {
+    font-weight: 600;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    padding: 15px 0 0;
+    font-size: 1.1em;
+}
+
+.total-price {
+    color: var(--primary-color);
+}
+
+.divider {
+    border-top: 1px solid var(--border-color);
+    margin: 15px 0;
+}
+
+/* ... (Giữ nguyên các styles cũ như :root, body, container, v.v.) ... */
+
+/* Thanh chuyển đổi Tab */
+.checkout-tab-nav {
+    display: flex;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.checkout-tab-nav button {
+    flex: 1;
+    padding: 10px 15px;
+    background-color: #f0f0f0;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+    font-size: 1em;
+}
+
+.checkout-tab-nav button:hover {
+    background-color: #e9e9e9;
+}
+
+.checkout-tab-nav button.active {
+    background-color: #fff;
+    border-bottom: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* Khối nội dung Tab */
+.tab-panel {
+    padding: 10px 0;
+}
+
+/* ... (Giữ nguyên các styles cũ cho .address-option, .form-group, v.v.) ... */
+
+/* Media Queries cho Responsive */
+@media (max-width: 768px) {
+    .checkout-layout {
+        flex-direction: column;
+    }
+
+    .info-section, .summary-section {
+        flex: none;
+        width: 100%;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}

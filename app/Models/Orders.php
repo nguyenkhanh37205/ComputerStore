@@ -3,72 +3,71 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model; // 🚨 Phải là class này
 
-class Orders extends Model
+class Orders extends Model // 🚨 Phải kế thừa trực tiếp từ Model
 {
     use HasFactory;
 
     protected $table = 'orders'; 
     protected $primaryKey = 'orderId'; 
-
-    // Laravel mặc định tìm 'updated_at', nếu không có, cần tắt timestamps
+    
     public $timestamps = false; 
-    const CREATED_AT = 'createdAt'; // Khai báo tên cột created_at
-
-    /**
-     * Các thuộc tính có thể gán hàng loạt.
-     */
+    protected $guarded = []; // Chặn gán đại trà
+    
     protected $fillable = [
         'userId',
-        'productId',
-        'promotionId',
-        'userVoucherId',
-        'status',
-        'total',
-        'paymentMethod',
         'shippingAddressId',
+        'total', 
+        'paymentMethod',
+        'status',
+        'promotionId', 
+        'userVoucherId',
     ];
 
-    /**
-     * Các thuộc tính được tự động chuyển sang kiểu dữ liệu cụ thể.
-     */
-    protected $casts = [
-        'total' => 'decimal:2',
-        'status' => 'string', // Enum được xử lý như string
-    ];
-
-    /**
-     * Định nghĩa quan hệ (Relationships)
-     */
-    
-    // Đơn hàng thuộc về một User
-    public function user()
+    public function product()
     {
-        return $this->belongsTo(Users::class, 'userId', 'userId'); 
+        return $this->belongsTo(Products::class, 'productId', 'productId');
     }
 
-    // Đơn hàng có thể áp dụng một Promotion
-    // public function promotion()
-    // {
-    //     return $this->belongsTo(Promotion::class, 'promotionId', 'promotionId');
-    // }
-    
-    // Đơn hàng có thể áp dụng một Voucher của User (Giả định có Model UserVoucher)
-    // public function userVoucher()
-    // {
-    //     return $this->belongsTo(UserVoucher::class, 'userVoucherId', 'userVoucherId');
-    // }
-    
-    // Đơn hàng có một Shipping Address (Giả định có Model ShippingAddress)
-    // public function shippingAddress()
-    // {
-    //     return $this->belongsTo(ShippingAddress::class, 'shippingAddressId', 'shippingAddressId');
-    // }
-    
-    // Đơn hàng có nhiều chi tiết đơn hàng (Order Items)
-//     public function items()
-//     {
-//         return $this->hasMany(OrderItem::class, 'orderId', 'orderId');
-//     }
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class, 'orderId', 'orderId');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userId', 'userId');
+    }   
+
+    public function shippingAddress()
+    {
+        return $this->belongsTo(ShippingAddress::class, 'shippingAddressId', 'addressId');
+    }
+
+    public function getOrderCodeAttribute()
+    {
+        return 'MTC-' . str_pad($this->orderId, 6, '0', STR_PAD_LEFT);
+    }
+
+    // 2. Accessor cho Trạng thái hiển thị (status_text)
+    public function getStatusTextAttribute()
+    {
+        // Chuyển đổi giá trị cột 'status' sang ngôn ngữ tiếng Việt
+        $statuses = [
+            'Pending' => 'Đang chờ xử lý',
+            'Processing' => 'Đang giao hàng',
+            'Completed' => 'Đã hoàn thành',
+            'Cancelled' => 'Đã hủy',
+        ];
+
+        return $statuses[$this->status] ?? $this->status;
+    }
+
+    // 3. Accessor cho created_at (Nếu cột trong DB là 'createdAt', nhưng view dùng 'created_at')
+    public function getCreatedAtAttribute($value) // <-- ĐÃ THÊM $value
+    {
+        // $value chính là giá trị raw từ cột 'createdAt' trong DB
+        return \Carbon\Carbon::parse($value)->format('d-m-Y H:i:s');
+    }
 }

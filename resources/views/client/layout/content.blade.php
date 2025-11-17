@@ -1,6 +1,4 @@
 <section class="banner-section">
-    <!-- <div class="main-banner-content"> -->
-    <!-- <img src="../public/images/iphone.webp" alt=""> -->
     <div class="banner-slider">
         <div class="slides">
             <div class="slide active">
@@ -14,11 +12,9 @@
             </div>
         </div>
 
-        <!-- Nút điều khiển -->
         <button class="prev">&#10094;</button>
         <button class="next">&#10095;</button>
 
-        <!-- Dots -->
         <div class="dots">
             <span class="dot active" data-index="0"></span>
             <span class="dot" data-index="1"></span>
@@ -76,11 +72,9 @@
                     <div class="section-header">
                         <h2>{{ $brandName }}</h2>
                     </div>
-
                     <div class="product-list-container">
                         <div class="product-list">
                             @foreach($brandProducts as $product)
-                                {{-- Lấy variant đầu tiên (nếu có) --}}
                                 @php
                                     $variant = optional($product->variants)->first();
 
@@ -97,8 +91,9 @@
                                     }
                                 @endphp
 
-                                {{-- Hiển thị sản phẩm --}}
-                                <div class="product-card">
+                                {{-- Thẻ A (cha) sẽ dẫn đến trang chi tiết --}}
+                                <a href="{{ route('product.show', ['id' => $product->productId]) }}" class="product-card"
+                                    style="text-decoration: none; color: inherit;">
                                     <div class="product-header">
                                         {{-- Nếu có giảm giá --}}
                                         @if(isset($variant->old_price) && $variant->old_price > $variant->price)
@@ -107,20 +102,23 @@
                                                 <b>{{ number_format($variant->old_price - $variant->price, 0, ',', '.') }} ₫</b>
                                             </span>
                                         @endif
-                                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
+                                        {{-- Nút yêu thích --}}
+                                        <button class="favorite-btn" onclick="event.preventDefault(); event.stopPropagation();"><i
+                                                class="far fa-heart"></i></button>
+                                        {{-- SCRIPT NÀY CẦN ĐẶT Ở FILE JS/HEAD để tránh lặp code --}}
                                         <script>
                                             const favBtn = document.querySelector('.favorite-btn');
-
-                                            favBtn.addEventListener('click', () => {
+                                            favBtn.addEventListener('click', (e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation(); // Ngăn sự kiện click lan truyền lên thẻ <a> cha
                                                 favBtn.classList.toggle('active');
                                             });
-
                                         </script>
                                     </div>
 
                                     {{-- Ảnh sản phẩm --}}
-                                    <img src="{{ asset('storage/images/' . ($variant->image ?? $product->image)) }}"
-                                        alt="{{ $product->productName }}" class="product-img">
+                                    <img src="{{ asset($product->image) }}" alt="{{ $product->productName }}" class="product-img">
+
 
                                     {{-- Thông tin sản phẩm --}}
                                     <div class="product-info">
@@ -143,21 +141,17 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <form action="{{ route('cart.store') }}" method="POST" style="">
-                                        @csrf
-                                        <input type="hidden" name="variantId" value="{{ $variant->variantId ?? null }}">
-                                        <input type="hidden" name="quantity" value="1">
-                                        <button type="submit" class="contact-link">Thêm giỏ hàng</button>
-                                    </form>
 
-                                </div>
+                                    {{-- THAY THẾ FORM THÊM GIỎ HÀNG BẰNG NÚT XEM CHI TIẾT --}}
+                                    <button class="contact-link view-detail-btn">Xem chi tiết</button>
+                                </a>
                             @endforeach
                         </div>
+                    </div>
                 @endforeach
 
             @endif
-            </div>
+        </div>
     </section>
-
 
 </main>

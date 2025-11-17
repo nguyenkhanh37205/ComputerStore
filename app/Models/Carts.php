@@ -25,6 +25,12 @@ class Carts extends Model
         return $this->belongsTo(User::class, 'userId', 'userId');
     }
 
+    // Cart thuộc 1 user
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'userId', 'userId');
+    }
+
     // Cart thuộc 1 biến thể sản phẩm
     public function variant()
     {

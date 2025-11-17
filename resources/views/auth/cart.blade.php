@@ -43,8 +43,10 @@
                         <tr data-id="{{ $item->cartId }}">
                             <td><input type="checkbox" class="item-check" checked></td>
                             <td>
-                                <img src="{{ asset('storage/images/' . ($item->variant->image ?? 'no-image.jpg')) }}"
-                                    alt="{{ $item->variant->product->productName ?? 'Không xác định' }}">
+                                <img src="{{ asset(($item->variant->image ?? 'no-image.jpg')) }}"
+                                alt="{{ $item->variant->product->productName ?? 'Không xác định' }}"
+                                    class="product-image">
+                            </td>
                             </td>
                             <td class="name">{{ $item->variant->product->productName ?? 'Không xác định' }}</td>
                             <td class="price" data-price="{{ $price }}">

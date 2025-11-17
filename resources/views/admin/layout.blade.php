@@ -57,29 +57,32 @@
                         </a>
                     </li>
 
-                    <li>
-                        <a href="{{ route('admin.cart.index') }}">
+                    <!-- <li>
+                        <a href="{{ route('admin.cart.indexAdmin') }}">
                             <i class="fas fa-shopping-bag"></i>
                             <span>Giỏ hàng</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="{{ route('admin.variants.index') }}">
                             <i class="fas fa-cogs"></i>
                             <span>Biến thể sản phẩm</span>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="{{ route('admin.wishlists.index') }}">
                             <i class="fas fa-heart"></i>
                             <span>Danh sách yêu thích</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="sign-out">
-                        <a href="{}">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span>Đăng xuất</span>
-                        </a>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="logout-button">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Đăng xuất</span>
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </div>
